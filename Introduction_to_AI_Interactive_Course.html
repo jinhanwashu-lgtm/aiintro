@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Artificial Intelligence · An Interactive Course for Working Professionals</title>
+<meta name="description" content="An interactive introduction to artificial intelligence for working professionals, with a supplementary module on the Claude Certified Associate – Foundations syllabus.">
+<style>
+  :root{
+    --bg:#000; --bg-2:#0a0a0a; --card:#111; --card-2:#171717; --line:#222; --line-2:#2e2e2e;
+    --ink:#fff; --ink-2:#a3a3a3; --ink-3:#6b6b6b;
+    --red:#e82127; --red-2:#c41e23; --blue:#3e6ae1; --green:#3dbd6e; --amber:#f2a33c;
+    --sans:"Gotham SSm A","Gotham","Inter","SF Pro Display","Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:"SF Mono","JetBrains Mono",Consolas,Menlo,monospace;
+    --r:12px; --r-pill:999px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  [data-theme="light"]{
+    --bg:#fff; --bg-2:#f5f5f5; --card:#f7f7f7; --card-2:#efefef; --line:#e5e5e5; --line-2:#d6d6d6;
+    --ink:#171a20; --ink-2:#5c5e62; --ink-3:#8e8e8e;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.65;font-size:clamp(17px,1.05vw + 10px,19px);letter-spacing:.002em}
+  p{margin:.6em 0 1.1em} main p,main li{max-width:66ch}
+  a{color:var(--ink)}
+  h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.15;margin:0 0 .5em;color:var(--ink);letter-spacing:-.01em}
+  h1{font-size:clamp(2.4rem,4vw,3.6rem);font-weight:600;letter-spacing:-.025em;line-height:1.05} h2{font-size:clamp(1.8rem,2.4vw,2.4rem)} h3{margin-top:2em;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.9rem;color:var(--ink-2)} h4{font-size:1.1rem}
+  code,pre{font-family:var(--mono);font-size:.86em}
+  code{background:var(--card-2);padding:.12em .4em;border-radius:6px;color:var(--ink)}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+  .skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:.5rem .9rem;z-index:100;border-radius:var(--r-pill)}
+  .skip:focus{left:8px}
+
+  /* top bar — Tesla style: wordmark left, controls right, hairline below */
+  .topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
+  .topbar .in{max-width:1240px;margin:0 auto;padding:.7rem 1.4rem;display:flex;align-items:center;gap:1.2rem}
+  .brand{font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:.92rem;white-space:nowrap;color:var(--ink)}
+  .brand small{display:block;font-weight:400;font-size:.7rem;color:var(--ink-3);letter-spacing:.14em;margin-top:.1rem}
+  .prog{flex:1;height:2px;background:var(--line-2);border-radius:2px;overflow:hidden;min-width:60px}
+  .prog i{display:block;height:100%;width:0;background:var(--red);transition:width .25s var(--ease)}
+  .tb{background:transparent;color:var(--ink);border:1px solid var(--line-2);border-radius:var(--r-pill);padding:.5rem 1.1rem;cursor:pointer;font-size:.9rem;white-space:nowrap;font-family:var(--sans);letter-spacing:.04em;transition:all .2s var(--ease)}
+  .tb:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .menu-btn{display:none}
+
+  .wrap{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:270px 1fr;gap:2.8rem;padding:2rem 1.4rem}
+  nav.side{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;font-size:1rem;padding-right:.5rem;scrollbar-width:thin}
+  nav.side .grp{color:var(--ink-3);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;margin:1.3rem 0 .4rem;padding-left:.9rem}
+  nav.side a{display:flex;align-items:center;gap:.5rem;color:var(--ink-2);text-decoration:none;padding:.5rem 1rem;border-radius:var(--r-pill);transition:all .2s var(--ease)}
+  nav.side a:hover{color:var(--ink);background:var(--card)}
+  nav.side a.on{color:var(--ink);background:var(--card-2)}
+  nav.side a .tick{margin-left:auto;font-size:.7rem;color:var(--green);opacity:0;transition:opacity .2s}
+  nav.side a.done .tick{opacity:1}
+  main{min-width:0}
+
+  /* hero */
+  .hero{background:radial-gradient(1200px 500px at 70% -20%,rgba(232,33,39,.18),transparent 60%),var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:3.2rem 2.6rem 2.4rem;margin-bottom:1.6rem;position:relative;overflow:hidden}
+  .hero .crest{font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2);margin-bottom:1rem}
+  .hero p.lede{font-size:1.3rem;max-width:62ch;color:var(--ink-2);font-weight:300;line-height:1.6}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+  .hero .meta span{border:1px solid var(--line-2);padding:.45rem 1.1rem;border-radius:var(--r-pill);font-size:.88rem;color:var(--ink-2);letter-spacing:.04em}
+  .hero .how{margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.2rem;color:var(--ink-2)}
+  .hero .how b{display:block;color:var(--ink);font-weight:500;margin-bottom:.3rem;font-size:.86rem;letter-spacing:.1em;text-transform:uppercase}
+  .kbd{font-family:var(--mono);font-size:.74em;border:1px solid var(--line-2);border-radius:6px;padding:.05em .4em;background:var(--card)}
+
+  /* sections */
+  section.lec{scroll-margin-top:88px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:2.8rem 3rem;margin-bottom:1.6rem}
+  .qhead{border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1.4rem}
+  .qhead h2{font-weight:500;margin:.4rem 0 0}
+  .chapno{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red)}
+  .lede-ch{font-size:1.25rem;color:var(--ink-2);font-weight:300;max-width:62ch;line-height:1.6}
+  .exam{display:none;border-left:2px solid var(--line-2);padding:.9rem 1.2rem;margin:1rem 0;font-size:1.02rem;color:var(--ink-2)}
+  .exam b{color:var(--ink)} .exam .en{font-style:italic}
+  .box{border-radius:var(--r);padding:1.3rem 1.5rem;margin:1.2rem 0;border:1px solid var(--line);background:var(--card)}
+  .box .tag{display:block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:.45rem;color:var(--ink-3)}
+  .key{border-color:var(--line-2);background:linear-gradient(180deg,var(--card-2),var(--card))}.key .tag{color:var(--blue)}
+  .worked{background:var(--card)}.worked .tag{color:var(--green)}
+  .think{background:transparent;border:0;border-left:2px solid var(--red);padding:.4rem 1.4rem;margin:1.6rem 0;color:var(--ink-2);font-weight:300;font-size:1.15rem;line-height:1.6}
+  .think .tag{display:block;color:var(--red);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:.3rem}
+  .think b{color:var(--ink);font-weight:500}
+  .prof{display:flex;gap:1.2rem;margin:1.2rem 0;padding:1.4rem 1.6rem;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);font-size:1.05rem;color:var(--ink-2);font-weight:300;line-height:1.65}
+  .prof .av{flex:none;width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:600;font-size:.9rem}
+  .prof .who{font-size:.72rem;color:var(--ink-3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.3rem}
+  .summary{border:1px solid var(--line);border-radius:var(--r);padding:1.2rem 1.4rem;margin:1.8rem 0 1rem;background:var(--card)}
+  .summary h3{margin-top:0} .summary ul{margin:.5rem 0 0 1.1rem;padding:0;color:var(--ink-2)} .summary li{margin:.45rem 0}
+  .review{margin-top:1.4rem}
+  .review details{border:1px solid var(--line);border-radius:var(--r);margin:.5rem 0;background:var(--card);transition:border-color .2s}
+  .review details[open]{border-color:var(--line-2)}
+  .review summary{cursor:pointer;padding:1rem 1.3rem;font-weight:500;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .review summary::-webkit-details-marker{display:none}
+  .review summary:after{content:"+";color:var(--ink-3);font-size:1.2rem;font-weight:300;transition:transform .2s var(--ease)}
+  .review details[open] summary:after{transform:rotate(45deg)}
+  .review .ans{padding:.2rem 1.3rem 1.1rem;color:var(--ink-2);font-size:1.02rem;font-weight:300}
+
+  /* labs: instrument panels */
+  .lab{border:1px solid var(--line-2);border-radius:var(--r);padding:1.6rem 1.8rem;margin:1.6rem 0;background:var(--card);position:relative;box-shadow:0 20px 60px -30px rgba(0,0,0,.6)}
+  [data-theme="light"] .lab{box-shadow:0 20px 50px -30px rgba(0,0,0,.25)}
+  .lab .lt{display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem;flex-wrap:wrap}
+  .lab .lt b{font-weight:500;font-size:1.2rem}
+  .lab .lt .pill{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line-2);padding:.25rem .7rem;border-radius:var(--r-pill);font-weight:600}
+  .lab .lt .mark{margin-left:auto;font-size:.85rem;color:var(--green);display:none;letter-spacing:.06em}
+  .lab.done .lt .mark{display:inline}
+  .lab.done .lt .pill{border-color:var(--green);color:var(--green)}
+  .row{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:flex-start}
+  .col{flex:1 1 280px;min-width:0}
+  .ctl{display:flex;flex-direction:column;gap:.45rem;margin:.9rem 0;font-size:1rem}
+  .ctl label{display:flex;justify-content:space-between;color:var(--ink-2)}
+  .ctl label output{font-family:var(--mono);color:var(--ink)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;background:var(--line-2);border-radius:2px;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--ink);border:0;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);transition:transform .15s var(--ease)}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--ink);border:0;cursor:pointer}
+  input[type=range]::-moz-range-track{height:4px;background:var(--line-2);border-radius:2px}
+  input[type=number]{font-family:var(--mono);border:1px solid var(--line-2);border-radius:8px;padding:.3rem .45rem;background:var(--bg);color:var(--ink)}
+  button.b{background:var(--ink);color:var(--bg);border:1px solid var(--ink);border-radius:var(--r-pill);padding:.7rem 1.5rem;cursor:pointer;font-size:.95rem;font-family:var(--sans);font-weight:500;letter-spacing:.03em;transition:all .2s var(--ease)}
+  button.b:hover{opacity:.85;transform:translateY(-1px)}
+  button.b.sec{background:transparent;color:var(--ink);border-color:var(--line-2)}
+  button.b.sec:hover{border-color:var(--ink);opacity:1}
+  button.b.sm{padding:.5rem 1.15rem;font-size:.9rem}
+  button:disabled{opacity:.4;cursor:default;transform:none!important}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.4rem;font-size:1rem;margin:.5rem 0}
+  .kv dt{color:var(--ink-2)} .kv dd{margin:0;font-family:var(--mono);color:var(--ink)}
+  .big{font-size:2.4rem;color:var(--ink);font-weight:300;letter-spacing:-.02em}
+  table.t{border-collapse:separate;border-spacing:0;width:100%;font-size:1rem;margin:.6rem 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  table.t th,table.t td{border-bottom:1px solid var(--line);padding:.7rem .95rem;text-align:left;vertical-align:top}
+  table.t tr:last-child td{border-bottom:0}
+  table.t th{background:var(--card-2);font-weight:500;color:var(--ink-2);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase}
+  table.t td.c,table.t th.c{text-align:center}
+  .ok{color:var(--green);font-weight:500}.bad{color:var(--red);font-weight:500}
+  .muted{color:var(--ink-2);font-size:.95rem}
+  .chip{display:inline-block;border:1px solid var(--line-2);background:transparent;border-radius:var(--r-pill);padding:.45rem 1rem;font-size:.95rem;margin:.2rem;cursor:pointer;user-select:none;color:var(--ink);font-family:var(--sans);transition:all .18s var(--ease)}
+  .chip:hover{border-color:var(--ink)}
+  .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .chip.good{background:var(--green);color:#000;border-color:var(--green)}
+  .chip.badc{background:var(--red);color:#fff;border-color:var(--red)}
+  svg text{font-family:var(--sans);fill:var(--ink)}
+  .fig{text-align:center;margin:1rem 0}
+  .fig svg{max-width:100%;height:auto}
+  .fig .cap{font-size:.9rem;color:var(--ink-3);margin-top:.4rem}
+  .tabs{display:flex;gap:.3rem;margin-bottom:1rem;flex-wrap:wrap;background:var(--bg);padding:.25rem;border-radius:var(--r-pill);width:max-content;max-width:100%;border:1px solid var(--line)}
+  .tabs button{background:none;border:0;border-radius:var(--r-pill);padding:.55rem 1.2rem;cursor:pointer;color:var(--ink-2);font-size:.95rem;font-family:var(--sans);transition:all .2s var(--ease)}
+  .tabs button.on,.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+  .fade{animation:fade .3s var(--ease)}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .chat{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:.8rem 1rem;font-size:1rem;min-height:240px;max-height:300px;overflow:auto}
+  .chat .m{margin:.35rem 0;padding:.5rem .8rem;border-radius:14px;max-width:88%}
+  .chat .j{background:var(--blue);color:#fff;margin-left:auto;text-align:right;border-bottom-right-radius:4px}
+  .chat .j .who{color:rgba(255,255,255,.7)}
+  .chat .r{background:var(--card-2);border-bottom-left-radius:4px}
+  .chat .who{font-size:.7rem;color:var(--ink-3);letter-spacing:.1em}
+  .grid3{display:grid;grid-template-columns:repeat(3,76px);gap:7px;margin:.4rem auto;width:max-content;padding:8px;background:var(--bg);border-radius:var(--r);border:1px solid var(--line)}
+  .tile{width:76px;height:76px;display:grid;place-items:center;font-size:1.8rem;font-weight:500;background:var(--card-2);border:1px solid var(--line-2);border-radius:10px;cursor:pointer;color:var(--ink);transition:all .15s var(--ease);font-family:var(--sans)}
+  .tile:hover{background:var(--ink);color:var(--bg);transform:scale(1.03)}
+  .tile.blank{background:transparent;border-style:dashed;cursor:default}
+  .tile.ok{border-color:var(--green);color:var(--green)}
+  .tile.ok:hover{background:var(--green);color:#000}
+  .q{border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.1rem;margin:.8rem 0;background:var(--card)}
+  .q .qs{font-weight:500;margin-bottom:.7rem;font-size:1.08rem}
+  .q .op{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);padding:.7rem 1.1rem;margin:.35rem 0;border:1px solid var(--line-2);border-radius:12px;cursor:pointer;font-size:1rem;font-family:var(--sans);transition:all .18s var(--ease)}
+  .q .op:hover{border-color:var(--ink)}
+  .q .op.right{background:rgba(61,189,110,.15);border-color:var(--green)}
+  .q .op.wrong{background:rgba(232,33,39,.15);border-color:var(--red)}
+  .q .exp{display:none;font-size:.98rem;color:var(--ink-2);margin-top:.6rem;border-top:1px solid var(--line);padding-top:.6rem}
+  .q.done .exp{display:block}
+  .toggle{cursor:pointer;color:var(--ink);font-size:1rem;background:none;border:0;padding:0;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--ink-3)}
+  .dom{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.6rem;margin:.8rem 0}
+  .dom .d{text-align:left;font-family:var(--sans);color:var(--ink);border:1px solid var(--line-2);border-radius:var(--r);padding:1rem 1.1rem;font-size:.98rem;cursor:pointer;background:var(--bg);transition:all .2s var(--ease)}
+  .dom .d:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .dom .d.on{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
+  .dom .d b{display:block;font-weight:500;margin-bottom:.2rem}
+  .dom .d .w{font-family:var(--mono);color:var(--ink-2);font-size:.88rem}
+  .bar{height:3px;background:var(--line-2);border-radius:2px;margin-top:.5rem;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--red);transition:width .3s var(--ease)}
+  .marks{display:inline-block;font-family:var(--mono);font-size:.95rem;color:var(--ink-2);border:1px solid var(--line-2);padding:.2rem .7rem;border-radius:var(--r-pill)}
+  .help{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;place-items:center;z-index:200}
+  .help.on{display:grid}
+  .help .card{background:var(--bg-2);color:var(--ink);padding:1.6rem 1.8rem;border-radius:16px;max-width:420px;border:1px solid var(--line-2)}
+  .foot{color:var(--ink-3);font-size:.88rem;text-align:center;padding:2.4rem 0;letter-spacing:.04em}
+  @media print{.topbar,nav.side,.help,button.b{display:none!important}.wrap{display:block}section.lec{break-inside:avoid;border:0}}
+  @media (max-width:880px){
+    .wrap{grid-template-columns:1fr}
+    nav.side{position:fixed;left:0;top:62px;bottom:0;width:280px;background:var(--bg);padding:1rem;border-right:1px solid var(--line);transform:translateX(-100%);transition:transform .25s var(--ease);max-height:none;z-index:40}
+    nav.side.open{transform:none}
+    .menu-btn{display:inline-block}
+    section.lec{padding:1.4rem 1.1rem}
+    .hero{padding:2rem 1.3rem}
+    h1{font-size:2rem}
+    .brand small{display:none}
+  }
+
+  /* ---- interaction layer ---- */
+  .stat{display:flex;align-items:center;gap:.55rem;border:1px solid var(--line-2);border-radius:var(--r-pill);padding:.35rem .9rem .35rem .5rem;font-size:.9rem;color:var(--ink-2);white-space:nowrap}
+  .stat svg{width:26px;height:26px;transform:rotate(-90deg)}
+  .stat circle{fill:none;stroke-width:3}
+  .stat .bgc{stroke:var(--line-2)} .stat .fgc{stroke:var(--red);stroke-linecap:round;transition:stroke-dashoffset .5s var(--ease)}
+  .stat b{color:var(--ink);font-weight:500}
+  .toasts{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);display:flex;flex-direction:column;gap:.5rem;z-index:150;pointer-events:none;width:min(92vw,520px);align-items:center}
+  .toast{background:var(--ink);color:var(--bg);padding:.75rem 1.2rem;border-radius:var(--r-pill);font-size:.95rem;box-shadow:0 12px 40px rgba(0,0,0,.45);animation:toastin .35s var(--ease);display:flex;gap:.7rem;align-items:center;pointer-events:auto}
+  .toast.out{animation:toastout .3s var(--ease) forwards}
+  .toast .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .toast button{background:transparent;border:0;color:inherit;opacity:.7;cursor:pointer;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px;font-size:.9rem;padding:0}
+  @keyframes toastin{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  @keyframes toastout{to{opacity:0;transform:translateY(10px)}}
+  .nextbar{position:fixed;right:1.4rem;bottom:1.4rem;z-index:120;display:flex;align-items:center;gap:.8rem;background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r-pill);padding:.5rem .6rem .5rem 1.2rem;box-shadow:0 16px 50px rgba(0,0,0,.5);transition:transform .35s var(--ease),opacity .35s;max-width:min(92vw,520px)}
+  .nextbar.hide{transform:translateY(120%);opacity:0;pointer-events:none}
+  .nextbar .lbl{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .nextbar .ttl{font-size:.98rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+  .nextbar button{flex:none}
+  nav.side a .eta{font-size:.72rem;color:var(--ink-3);margin-left:auto;font-family:var(--mono);white-space:nowrap;flex:none}
+  nav.side a.done .eta{display:none}
+  .pzctl{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
+  .hint{font-size:.85rem;color:var(--ink-3);text-align:center;margin-top:.4rem}
+  .hint .kbd{font-size:.72rem}
+  .tile:active{transform:scale(.96)}
+  .tile.moved{animation:pop .22s var(--ease)}
+  @keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.06)}100%{transform:none}}
+  .lab.done{border-color:rgba(61,189,110,.45)}
+  .confirm{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+  @media (max-width:880px){.nextbar{left:1rem;right:1rem;bottom:1rem;max-width:none}.nextbar .ttl{max-width:none}.toasts{bottom:88px}.stat span{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="topbar"><div class="in">
+  <button class="tb menu-btn" aria-label="Open contents" onclick="document.getElementById('side').classList.toggle('open')">Menu</button>
+  <div class="brand">AI · Foundations<small>Interactive course · for working professionals</small></div>
+  <div class="prog" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progbar"><i id="prog"></i></div>
+  <div class="stat" id="stat" role="status" aria-live="polite" title="Experiments completed"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="bgc" cx="16" cy="16" r="13"/><circle class="fgc" id="statRing" cx="16" cy="16" r="13" stroke-dasharray="81.7" stroke-dashoffset="81.7"/></svg><span><b id="statN">0</b> / 20</span></div>
+  <button class="tb" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">Light</button>
+  <button class="tb" onclick="document.getElementById('help').classList.add('on')" aria-label="Keyboard shortcuts">Keys</button>
+</div></div>
+
+<div class="help" id="help" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="card">
+    <h3 style="margin-top:0">Keyboard shortcuts</h3>
+    <dl class="kv"><dt><span class="kbd">J</span> / <span class="kbd">K</span></dt><dd>Next / previous section</dd><dt><span class="kbd">D</span></dt><dd>Toggle light / dark</dd><dt><span class="kbd">←↑→↓</span></dt><dd>Move the gap in the 8-puzzle (when it has focus)</dd><dt><span class="kbd">Z</span></dt><dd>Undo a puzzle move</dd><dt><span class="kbd">?</span></dt><dd>This panel</dd><dt><span class="kbd">Esc</span></dt><dd>Close</dd></dl>
+    <p class="muted">Your progress (labs completed, quiz score, theme) is kept in this browser only.</p>
+    <button class="b sm" onclick="document.getElementById('help').classList.remove('on')">Close</button>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="nextbar hide" id="nextbar"><div><div class="lbl">Up next</div><div class="ttl" id="nextTitle"></div></div><button class="b sm" id="nextBtn">Continue →</button></div>
+
+<div class="wrap">
+<nav class="side" id="side" aria-label="Course contents">
+  <div class="grp">Preliminaries</div>
+  <a href="#intro">Preface<span class="tick">✓</span></a>
+  <div class="grp">Chapter 1 · What is an intelligent agent?</div>
+  <a href="#q1a">The Turing Test<span class="tick">✓</span></a>
+  <a href="#q1b">PEAS<span class="tick">✓</span></a>
+  <a href="#q1c">Task environments<span class="tick">✓</span></a>
+  <div class="grp">Chapter 2 · Deciding and searching</div>
+  <a href="#q2a">Reflex vs goal-based agents<span class="tick">✓</span></a>
+  <a href="#q2b">The 8-puzzle<span class="tick">✓</span></a>
+  <a href="#q2c">Simulated annealing<span class="tick">✓</span></a>
+  <div class="grp">Chapter 3 · Reasoning under uncertainty</div>
+  <a href="#q3a">Uncertainty &amp; Bayes<span class="tick">✓</span></a>
+  <a href="#q3b">Markov chains<span class="tick">✓</span></a>
+  <a href="#q3c">Markov decision processes<span class="tick">✓</span></a>
+  <div class="grp">Chapter 4 · Language and learning</div>
+  <a href="#q4a">Ambiguity in language<span class="tick">✓</span></a>
+  <a href="#q4b">Neural networks<span class="tick">✓</span></a>
+  <a href="#q4c">Entropy &amp; decision trees<span class="tick">✓</span></a>
+  <div class="grp">Chapter 5 · AI at work</div>
+  <a href="#claude">Claude Certified Associate<span class="tick">✓</span></a>
+  <div class="grp">Appendix</div>
+  <a href="#formulas">Formulae<span class="tick">✓</span></a>
+  <a href="#quiz">End-of-course test<span class="tick">✓</span></a>
+</nav>
+
+<main id="main">
+
+<div class="hero" id="intro">
+  <div class="crest">Introduction to Artificial Intelligence</div>
+  <h1>Understand the machine.<br>Then put it to work.</h1>
+  <p class="lede">This is a book for people who left formal study some years ago and now find artificial intelligence arriving in their working lives. It asks nothing of you beyond curiosity and a willingness to try things. The mathematics never goes past fractions and logarithms, and whenever a number appears there is a machine on the page that lets you change it and watch what happens.</p>
+  <p class="lede" style="font-size:1rem">Read it in order if you can; each chapter leans on the one before. The first four chapters build the ideas — agents, search, uncertainty, language and learning. The fifth turns to the practical question of using an AI assistant well at work, and to the syllabus of Anthropic's <i>Claude Certified Associate – Foundations</i>.</p>
+  <div class="meta"><span>5 chapters</span><span>20 interactive experiments</span><span>Self-contained · works offline</span><span>Review questions with suggested answers</span></div>
+  <div class="how">
+    <div><b style="color:var(--amber)">Pause and think</b>A question to sit with for a moment before reading on. The answer follows in the text.</div>
+    <div><b style="color:var(--blue)">Key idea</b>The one thing in a section worth carrying away.</div>
+    <div><b style="color:var(--green)">Worked example</b>Numbers, step by step, with a check at the end.</div>
+    <div><b style="color:var(--amber)">Experiment</b>Something to operate. Each marks itself complete in the contents list.</div>
+  </div>
+</div>
+
+<div class="prof"><div class="av">Pr</div><div><div class="who">Preface</div>
+I have taught this material to engineers, managers and the occasional sceptical accountant, and the same thing happens every time: the ideas are easier than their reputation, and the difficulty lies almost entirely in the vocabulary. So I have tried to introduce each term only when you need it and to tie it at once to something you can see on the page. Where a diagram or a figure is incomplete I say so, rather than conjure numbers; knowing when a problem is under-specified is itself part of thinking clearly. Press <span class="kbd">?</span> for keyboard shortcuts.
+</div></div>
+
+<!-- ============ Chapter 1 ============ -->
+<section class="lec" id="q1a">
+  <div class="qhead"><span class="chapno">Chapter 1 · §1</span><h2>Can a machine think? Turing's answer</h2></div>
+  <p class="lede-ch">Every introduction to artificial intelligence begins with the same awkward question, and most of them get stuck on it. Alan Turing's contribution, in 1950, was to replace the question with one that could actually be answered.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Suppose someone claimed to have built a thinking machine. What test would satisfy you? What would you need to see — and what, honestly, would you be unable to see however hard you looked?</div>
+
+  <p>Turing's proposal is disarmingly simple. A judge sits at a terminal and holds two conversations by text: one with a hidden person, one with a hidden machine. The judge may ask anything. Afterwards the judge must say which is which. If, over many such trials, the machine cannot be reliably told from the person, Turing suggested we should stop arguing about whether it "really" thinks and simply grant that it does.</p>
+  <p>Notice what the test refuses to do. It does not open the machine up. It does not ask how the answers are produced. It judges <b>behaviour</b> alone — and it insists on text precisely so that a voice, a face or a body cannot settle the matter before the conversation has begun.</p>
+
+  <div class="lab" data-lab="tt"><div class="lt"><span class="pill">Experiment 1</span><b>Sit in the judge's chair</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Two customer-service windows. One is staffed by a person, the other by software. Put the same questions to both, then say which is the machine.</p>
+    <div class="row">
+      <div class="col"><div class="muted">Window X</div><div class="chat" id="chatX" aria-live="polite"></div></div>
+      <div class="col"><div class="muted">Window Y</div><div class="chat" id="chatY" aria-live="polite"></div></div>
+    </div>
+    <div style="margin-top:.6rem" id="tQs"></div>
+    <div style="margin-top:.6rem">
+      <button class="b sm" onclick="guessTT('X')">X is the machine</button>
+      <button class="b sm" onclick="guessTT('Y')">Y is the machine</button>
+      <button class="b sm sec" onclick="resetTT()">Start again</button>
+      <span id="ttRes" style="margin-left:.6rem"></span>
+    </div>
+  </div>
+
+  <h3>Why it is not enough</h3>
+  <p>You may have found the experiment easy; the software gave itself away by being too tidy. But imagine a version that did not. Would passing the test show that it <i>understood</i> you? Here is the difficulty. A candidate can memorise interview answers and get the job without understanding it. A language model can learn what a natural reply looks like without being able to reason reliably when the situation changes. <b>Producing a convincing answer and understanding an answer are different things</b>, and the test cannot tell them apart.</p>
+  <p>Two further objections are worth having ready. The test lives entirely in text, so it says nothing about perception or physical skill: a system could pass and still be unable to find its way across a room. And the verdict depends on who is judging and what they thought to ask; a credulous judge with dull questions makes the test trivial.</p>
+  <p>The second objection led to a stronger proposal, the <b>Total Turing Test</b>, in which the machine must also see (through cameras), recognise what is around it, and act on objects (with a robot arm). A chatbot that explains how to replace a failed cooling fan is one thing; a system that must locate the fan, avoid the hazards beside it and carry out the replacement is quite another. The total test asks for both.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>Fluency is evidence of fluency. It is not evidence of understanding, and it is not evidence of correctness. Keep this in your pocket; it returns in Chapter 5 as the single most important habit for anyone using an AI assistant at work.</div>
+</section>
+
+<section class="lec" id="q1b">
+  <div class="qhead"><span class="chapno">Chapter 1 · §2</span><h2>Describing the job before building the worker</h2></div>
+  <p class="lede-ch">We say "intelligent agent" as though the phrase were self-explanatory. It is not, and a surprising amount of muddle disappears once you describe an agent's job with four plain questions.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>You are asked to build a robot that plays football. Before you touch a single motor: how will you know whether it is playing well? What is around it? What can it do? What can it sense?</div>
+
+  <p>Those four questions have a name — <b>PEAS</b>, for Performance, Environment, Actuators, Sensors — and the order matters. <b>Performance</b> first: what counts as success? For the footballer, scoring, winning, and staying within the rules. <b>Environment</b> next: the pitch, the ball, team-mates, opponents, a referee. <b>Actuators</b>: the means of acting on that world — motors, legs, a kicking mechanism. <b>Sensors</b>: the means of perceiving it — cameras, distance and motion sensors.</p>
+  <p>Why this order? Because a system cannot choose a sensible action if the information it needs is not available, nor carry out the action if it has no means to. Deciding what "good" means before you decide what to measure is the discipline that keeps projects honest.</p>
+
+  <div class="lab" data-lab="peas"><div class="lt"><span class="pill">Experiment 2</span><b>The same four questions, three different agents</b><span class="mark">✓ completed</span></div>
+    <div class="tabs" id="peasTabs" role="tablist"></div>
+    <div class="fig"><svg viewBox="0 0 640 230" width="640" id="peasSvg" role="img" aria-label="Agent and environment connected by sensors and actuators">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8a8a8a"/></marker></defs>
+      <rect x="20" y="30" width="200" height="170" rx="4" fill="var(--card-2)" stroke="var(--blue)"/>
+      <text x="120" y="58" text-anchor="middle" font-weight="700" font-size="14">AGENT</text>
+      <text x="120" y="82" text-anchor="middle" font-size="11" fill="var(--ink-2)">Performance measure</text>
+      <foreignObject x="28" y="90" width="184" height="104"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:13.5px;line-height:1.4;color:var(--ink)" id="peasP"></div></foreignObject>
+      <rect x="420" y="30" width="200" height="170" rx="4" fill="var(--card-2)" stroke="var(--amber)"/>
+      <text x="520" y="58" text-anchor="middle" font-weight="700" font-size="14">ENVIRONMENT</text>
+      <foreignObject x="428" y="70" width="184" height="120"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:13.5px;line-height:1.4;color:var(--ink)" id="peasE"></div></foreignObject>
+      <path d="M420,80 L222,80" stroke="#8a8a8a" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+      <text x="320" y="70" text-anchor="middle" font-size="12">← Sensors</text>
+      <foreignObject x="236" y="84" width="170" height="44"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:12.5px;text-align:center;color:var(--ink-2)" id="peasS"></div></foreignObject>
+      <path d="M222,160 L418,160" stroke="#8a8a8a" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+      <text x="320" y="150" text-anchor="middle" font-size="12">Actuators →</text>
+      <foreignObject x="236" y="164" width="170" height="44"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:12.5px;text-align:center;color:var(--ink-2)" id="peasA"></div></foreignObject>
+    </svg></div>
+    <p class="muted" id="peasNote"></p>
+  </div>
+
+  <p>The commonest confusion is between a performance measure and a sensor. A camera is a sensor; "goals scored" is a performance measure. A temperature reading is a sensor; "false-alarm rate" is a performance measure. The distinction is simple once stated, and easy to lose in the heat of a design meeting.</p>
+
+  <div class="lab" data-lab="peassort"><div class="lt"><span class="pill">Experiment 3</span><b>Performance, environment, actuator or sensor?</b><span class="mark">✓ completed</span></div>
+    <div id="peasSort"></div>
+    <div style="margin-top:.5rem"><span id="peasScore" class="muted"></span></div>
+  </div>
+
+  <div class="box key"><span class="tag">Key idea</span>Performance is what success means; environment is what surrounds the agent; actuators are what it can change; sensors are what it can read. Settle the first before the rest.</div>
+</section>
+
+<section class="lec" id="q1c">
+  <div class="qhead"><span class="chapno">Chapter 1 · §3</span><h2>What makes a problem hard: eight properties of an environment</h2></div>
+  <p class="lede-ch">Two tasks can look alike and be utterly different in difficulty. Chess and driving both involve choosing moves; one has been mastered by machines for decades and the other has not. The difference lies in the environment.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Think about a robot vacuum cleaner. Can it see the whole flat at once? Does the world stand still while it decides? If it tries to move forward, does it always end up where it intended? Each of those questions is one of the properties below.</div>
+
+  <p>The textbook list has eight pairs. An environment is <b>fully or partially observable</b>: can the agent see everything that matters, or must it remember and infer? It involves a <b>single agent or several</b>, and if several, they may be <b>competitive or co-operative</b>. It is <b>deterministic or not</b>: does the same action from the same state always produce the same result? It is <b>episodic or sequential</b>: does a decision now change what is possible later? It is <b>static or dynamic</b>: does the world change while the agent is thinking? Its states and actions are <b>discrete or continuous</b>. And its rules are <b>known or unknown</b> to the agent in advance.</p>
+  <p>For the vacuum cleaner most of these fall on the harder side. It cannot see every room or the sock under the sofa, so it is partially observable. People and pets wander through, so it is dynamic. Wheels slip and carpets vary, so in practice it is non-deterministic. Entering a narrow corridor now affects what can be cleaned next, so it is sequential. Its position is a continuous quantity, though a designer may choose to model it as a grid of cells. The layout is unknown until explored. It is usually a single agent, so competition does not arise — unless a second robot shares the flat, in which case the two may co-operate.</p>
+
+  <div class="lab" data-lab="env"><div class="lt"><span class="pill">Experiment 4</span><b>Classify the vacuum cleaner yourself</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Choose one side of each pair, then press <i>Check</i>. A reasoned alternative is as good as the reference; what matters is that you can say why.</p>
+    <div id="envDims"></div>
+    <div style="margin-top:.6rem"><button class="b sm" onclick="checkEnv()">Check</button> <button class="b sm sec" onclick="resetEnv()">Clear</button> <span id="envScore" class="muted" style="margin-left:.6rem"></span></div>
+  </div>
+
+  <p>A caution about the labels. They describe your <i>model</i> of the task as much as the task itself. A data-centre controller with incomplete temperature readings, unpredictable fan failures and changing power conditions is partially observable, non-deterministic and dynamic — but a simplified model might reasonably treat it otherwise. The point of the list is not to pin the right badge on each problem; it is to make you notice, before you build, which of these difficulties you are taking on.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>Partially observable, dynamic, sequential, non-deterministic, continuous, unknown: each of these makes a problem harder, and most real problems have several of them. Know which you face.</div>
+
+  <div class="summary"><h3>Chapter 1 in brief</h3><ul>
+    <li>The Turing Test judges behaviour alone, by text, and so cannot distinguish convincing imitation from understanding; the Total Turing Test adds perception and action.</li>
+    <li>PEAS — performance, environment, actuators, sensors — is the discipline of describing an agent's job before designing it.</li>
+    <li>Eight properties of an environment explain why some problems are hard; a justified classification matters more than a memorised one.</li>
+  </ul></div>
+  <div class="review"><h3>Questions for review</h3>
+    <details><summary>How would you run a Turing Test, and what would passing it show?</summary><div class="ans">A judge converses by text with a hidden person and a hidden machine, asking whatever they like, and must identify each. If the machine cannot reliably be distinguished it passes — a behavioural result only. It shows convincing imitation, not understanding, and says nothing about perception or physical competence.</div></details>
+    <details><summary>Describe PEAS for a football-playing robot.</summary><div class="ans">Performance: goals, winning, playing within the rules. Environment: pitch, ball, players, goalposts. Actuators: motors, legs, kicking mechanism. Sensors: cameras, distance and motion sensors.</div></details>
+    <details><summary>Give the eight environment properties for a robot vacuum cleaner, with a reason for each.</summary><div class="ans">Partially observable (cannot see every room); single agent (one cleaner), hence co-operation only if a second robot is added; non-deterministic in practice (slip, changing surroundings); sequential (earlier moves constrain later ones); dynamic (people and pets move); continuous in position, though it may be modelled as discrete cells; initially unknown layout, dynamics possibly known or learned.</div></details>
+  </div>
+</section>
+
+<!-- ============ Chapter 2 ============ -->
+<section class="lec" id="q2a">
+  <div class="qhead"><span class="chapno">Chapter 2 · §1</span><h2>Two ways of deciding: reflex and purpose</h2></div>
+  <p class="lede-ch">Every agent runs the same loop — sense, decide, act — and the whole of the subject lies in the middle word. The simplest agents decide by reflex; the interesting ones decide by looking ahead.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>A thermostat switches the heating on when the room is cold. A chess player considers what the opponent will do after each candidate move. Both are deciding. What, exactly, is the difference?</div>
+
+  <p>The thermostat is a <b>simple reflex agent</b>. It looks at the current reading, matches it against a rule — <i>if temperature below 18 °C then heat</i> — and acts. It has no memory, no notion of what will follow, and no alternatives to weigh. That is also its virtue: it is fast, cheap and easy to trust for a condition that is obvious. Its weakness appears the moment the right action depends on something it cannot currently see, or on what will happen next. A rule that says "if a miner's temperature exceeds 85 °C, raise an alert" is fine; it is no help in choosing <i>which</i> of several remedies to apply.</p>
+  <p>The chess player is a <b>goal-based agent</b>. It keeps an internal picture of the situation, it knows what outcome it wants, and it searches among sequences of actions for one that leads there. That buys flexibility — the same agent can pursue a different goal tomorrow — and the ability to foresee consequences. The price is a model of how the world responds to actions, and the computation to search through it.</p>
+
+  <div class="lab" data-lab="agent"><div class="lt"><span class="pill">Experiment 5</span><b>Look inside the two agents</b><span class="mark">✓ completed</span></div>
+    <div style="margin-bottom:.5rem"><button class="b sm" id="agBtnR" onclick="setAgent('reflex')">Simple reflex</button> <button class="b sm sec" id="agBtnG" onclick="setAgent('goal')">Goal-based</button> <button class="b sm sec" onclick="runAgent()">▶ Run one cycle</button></div>
+    <div class="fig"><svg viewBox="0 0 680 300" width="680" id="agSvg" role="img" aria-label="Agent diagram">
+      <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8a8a8a"/></marker></defs>
+      <rect x="20" y="20" width="640" height="260" rx="4" fill="none" stroke="var(--amber)" stroke-dasharray="6 4"/>
+      <text x="40" y="45" font-size="13" font-weight="700">ENVIRONMENT</text>
+      <rect x="120" y="70" width="440" height="180" rx="4" fill="var(--card-2)" stroke="var(--blue)" stroke-width="2"/>
+      <text x="340" y="95" text-anchor="middle" font-weight="700">AGENT</text>
+      <rect x="135" y="110" width="80" height="110" rx="3" fill="var(--card)" stroke="var(--blue)"/><text x="175" y="168" text-anchor="middle" font-size="12">Sensors</text>
+      <rect x="465" y="110" width="80" height="110" rx="3" fill="var(--card)" stroke="var(--blue)"/><text x="505" y="168" text-anchor="middle" font-size="12">Actuators</text>
+      <g id="agCore"></g>
+      <path d="M60,165 L133,165" stroke="#8a8a8a" stroke-width="2" marker-end="url(#ar2)"/><text x="60" y="155" font-size="11">percept</text>
+      <path d="M547,165 L620,165" stroke="#8a8a8a" stroke-width="2" marker-end="url(#ar2)"/><text x="565" y="155" font-size="11">action</text>
+      <circle id="agDot" r="6" fill="var(--red)" opacity="0"/>
+    </svg></div>
+    <div id="agText" class="muted"></div>
+  </div>
+
+  <p>People often assume that adding learning turns a reflex agent into a thoughtful one. It does not. A reflex agent can learn better thresholds or better rules from feedback; a goal-based agent can learn a more accurate model of the world, or faster ways to search it. Learning improves whatever kind of agent you have. The kind is fixed by <i>how it decides</i>.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>A reflex agent maps the present percept straight to an action. A goal-based agent asks what it wants and searches for a route there. Learning can sharpen either; it does not change which one you have.</div>
+</section>
+
+<section class="lec" id="q2b">
+  <div class="qhead"><span class="chapno">Chapter 2 · §2</span><h2>Turning a puzzle into something a computer can search</h2></div>
+  <p class="lede-ch">"Search for a route to the goal" is a fine phrase, but a computer cannot search a wooden puzzle. It can only search a precise description of one. Writing that description is the first real skill of the subject, and the 8-puzzle is the classic place to learn it.</p>
+
+  <p>You have probably held one: eight numbered tiles in a three-by-three frame with one gap, the tiles sliding into the gap. Let us describe it so that a program could work with it. We need to say what a <b>state</b> is, which state we start in, which we want, what <b>actions</b> are available, and — this turns out to matter — how we might guess how far we are from the goal.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>What is the least information you need to record about the puzzle to know exactly which moves are possible? What can you safely throw away?</div>
+
+  <p>A state is just the positions of the tiles. A three-by-three array of integers does it, with 0 standing for the gap: the position in the experiment below is <code>[[7,2,4],[5,0,6],[8,3,1]]</code>. Everything else — the colour of the tiles, their weight, the material of the frame — is irrelevant to which moves are legal, so we leave it out. This leaving-out is called <b>abstraction</b>, and it is not laziness: every detail you keep is a detail the search must carry.</p>
+  <p>The goal state is the arrangement we want, here <code>[[0,1,2],[3,4,5],[6,7,8]]</code>. An action is sliding a neighbouring tile into the gap; it is easier to think of it as moving the gap up, down, left or right, within the frame. Each action produces a new state, and the states joined by actions form a graph that a program can explore.</p>
+
+  <div class="lab" data-lab="puzzle"><div class="lt"><span class="pill">Experiment 6</span><b>The puzzle, with its description beside it</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col" style="flex:0 0 240px">
+        <div class="grid3" id="pz" role="group" aria-label="8-puzzle board" tabindex="0"></div>
+        <div class="pzctl"><button class="b sm sec" onclick="pzUndo()" id="pzUndoBtn" disabled>Undo</button><button class="b sm sec" onclick="pzReset()">Reset</button><button class="b sm" onclick="pzSolve()" id="pzSolveBtn">Solve with A*</button></div><div class="hint">Click the board, then use <span class="kbd">←↑→↓</span> to move the gap</div>
+      </div>
+      <div class="col">
+        <dl class="kv">
+          <dt>State</dt><dd id="pzState"></dd>
+          <dt>Moves made</dt><dd id="pzMoves">0</dd>
+          <dt>h₁ misplaced tiles</dt><dd id="pzH1"></dd>
+          <dt>h₂ Manhattan distance</dt><dd id="pzH2"></dd>
+          <dt>Legal actions</dt><dd id="pzActs"></dd>
+        </dl>
+        <p class="muted">Click a tile next to the gap to slide it. Watch the array change by exactly two entries each time, and watch the two estimates fall as you approach the goal.</p>
+        <div id="pzLog" class="muted" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>How big is the problem?</h3>
+  <p>Nine squares and nine distinct things to put in them (counting the gap) gives 9 × 8 × 7 × … × 1 = 9! = 362,880 arrangements. That is an over-count. Sliding tiles preserves a parity property, so from any particular start only half of the arrangements — 181,440 — can ever be reached. The number matters not because a search will visit them all, but because it tells you how much a good search must avoid.</p>
+
+  <h3>A sense of direction</h3>
+  <p>Searching without guidance is like trying every road out of a town until one reaches the sea. A <b>heuristic</b> is a quick estimate of how far the goal is, used to try promising roads first. The simplest for this puzzle counts the tiles that are not yet where they belong; at the start that is 8, at the goal 0. A better one, the <b>Manhattan distance</b>, adds up for each tile how many squares across and down it must still travel. Neither is the true distance — they are estimates — but both are zero exactly at the goal, and both never over-estimate, which is what allows the A* algorithm in the experiment to find a solution it can prove is shortest.</p>
+
+  <div class="fig"><svg viewBox="0 0 520 150" width="520" role="img" aria-label="Two puzzle states joined by an action">
+    <g id="pzFigA"></g><g id="pzFigB" transform="translate(360,0)"></g>
+    <path d="M185,75 L330,75" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar)"/>
+    <text x="257" y="65" text-anchor="middle" font-size="12">move gap RIGHT</text>
+    <path d="M330,95 L185,95" stroke="#6b6b6b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+    <text x="257" y="112" text-anchor="middle" font-size="11" fill="var(--ink-3)">move gap LEFT (reversible)</text>
+  </svg><div class="cap">One action joins two states: the 0 and the 6 exchange places.</div></div>
+
+  <div class="box key"><span class="tag">Key idea</span>To search a problem you must say what a state is, where you start, where you want to be, and what actions join states. Keep only the details that affect the answer, and give the search an estimate of distance so it knows which way to look.</div>
+</section>
+
+<section class="lec" id="q2c">
+  <div class="qhead"><span class="chapno">Chapter 2 · §3</span><h2>Getting out of a hole: simulated annealing</h2></div>
+  <p class="lede-ch">Many practical problems — timetabling, routing, laying out a factory — have far too many states to search exhaustively, and no tidy heuristic. For these we borrow a trick from the blacksmith.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>You are walking in fog over hilly ground, trying to reach the lowest point. Your rule is simple: always step downhill. What goes wrong?</div>
+
+  <p>What goes wrong is that you stop in the first hollow you find, which may be a shallow dip while a deep valley lies a few hundred yards away. Always stepping downhill is called <b>greedy descent</b>, and its failure has a name: a <b>local minimum</b>.</p>
+  <p>Now the blacksmith. When metal is heated and then cooled <i>slowly</i>, its atoms have time to jostle out of awkward arrangements and settle into a low-energy, orderly crystal. Cool it suddenly and it freezes into whatever disordered state it happened to be in. The slow process is called annealing, and the computational idea named after it is this: allow the search, <i>occasionally</i>, to step uphill. Early on, when the "temperature" is high, accept worse moves freely and explore widely. As the temperature falls, accept them more and more rarely, until the search settles.</p>
+  <p>The rule is precise. If a proposed move makes the cost worse by ΔE, accept it anyway with probability exp(−ΔE / T), where T is the current temperature. A small worsening at high temperature is nearly always accepted; a large worsening at low temperature almost never.</p>
+
+  <div class="lab" data-lab="saprob"><div class="lt"><span class="pill">Experiment 7</span><b>Feel the acceptance rule</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col">
+        <div class="ctl"><label>Increase in cost, ΔE <output id="saDEo">5</output></label><input type="range" id="saDE" min="0" max="20" step="0.5" value="5" aria-label="Delta E"></div>
+        <div class="ctl"><label>Temperature, T <output id="saTo">10</output></label><input type="range" id="saT" min="0.1" max="20" step="0.1" value="10" aria-label="Temperature"></div>
+      </div>
+      <div class="col">
+        <div>P(accept a worse move) = exp(−ΔE / T) = <span class="big" id="saP"></span></div>
+        <div class="muted" id="saNote"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box worked"><span class="tag">Worked example</span>A change to a technicians' rota raises its cost by 5. At temperature 10 it is accepted with probability exp(−5/10) = exp(−0.5) ≈ 0.61, or 61%. At temperature 1 the same change is accepted with probability exp(−5) ≈ 0.007, under 1%. The identical move is welcomed when hot and all but refused when cold.</div>
+
+  <div class="lab" data-lab="saland"><div class="lt"><span class="pill">Experiment 8</span><b>Greedy descent against annealing, on the same ground</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Both walkers start from the same point. The left one only ever steps downhill; the right one follows the annealing rule with a falling temperature.</p>
+    <div class="row">
+      <div class="col"><div class="muted">Greedy descent</div><canvas id="cvHC" width="420" height="200" style="width:100%;border:1px solid var(--line);border-radius:3px;background:var(--card)" aria-label="Greedy descent"></canvas><div class="muted" id="hcInfo"></div></div>
+      <div class="col"><div class="muted">Simulated annealing</div><canvas id="cvSA" width="420" height="200" style="width:100%;border:1px solid var(--line);border-radius:3px;background:var(--card)" aria-label="Simulated annealing"></canvas><div class="muted" id="saInfo"></div></div>
+    </div>
+    <div style="margin-top:.5rem">
+      <div class="ctl" style="max-width:360px"><label>Cooling rate α (T ← α·T each step) <output id="saAo">0.97</output></label><input type="range" id="saA" min="0.80" max="0.995" step="0.005" value="0.97" aria-label="Cooling rate"></div>
+      <button class="b sm" onclick="runLandscape()">▶ Run</button> <button class="b sm sec" onclick="randomStart()">New starting point</button>
+    </div>
+  </div>
+
+  <p>Try a cooling rate near 0.80 and you will see the annealer freeze almost as quickly as the greedy walker; try one near 0.995 and it wanders for a long time before settling. That is the whole difficulty of the method in practice. The starting temperature, the rate of cooling, how many moves to try at each temperature and when to stop are all choices, and bad choices give either a poor answer or a slow one. There is no formula; there is judgement, and experiment.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>Allowing an occasional step backwards is how a search escapes a local minimum. Hot means explore; cold means settle. Cooling too fast freezes in a bad answer; cooling too slowly wastes time.</div>
+
+  <div class="summary"><h3>Chapter 2 in brief</h3><ul>
+    <li>Reflex agents map the present percept to an action; goal-based agents keep state, hold a goal, and search. Learning improves either.</li>
+    <li>A search problem is a state representation, an initial state, a goal, and actions; abstraction removes what does not affect the answer.</li>
+    <li>The 8-puzzle has 9! arrangements but only half are reachable; heuristics such as misplaced tiles and Manhattan distance guide the search.</li>
+    <li>Simulated annealing accepts worse moves with probability exp(−ΔE/T) to escape local minima; its parameters require care.</li>
+  </ul></div>
+  <div class="review"><h3>Questions for review</h3>
+    <details><summary>Contrast reflex and goal-based agents: how each decides, what each is good and bad at, and how learning fits.</summary><div class="ans">Reflex: percept → rule → action; fast and cheap; cannot foresee consequences or cope with hidden state; learns by adjusting rules. Goal-based: percept + state + goal → search → action; flexible and able to plan; needs a world model and more computation; learns a better model or better planning.</div></details>
+    <details><summary>Describe the 8-puzzle as a search problem.</summary><div class="ans">State: a 3×3 array with 0 for the gap, e.g. [[7,2,4],[5,0,6],[8,3,1]]; abstracted away: colour, weight, material. 9! = 362,880 arrangements, 181,440 reachable (so 9! over-estimates). Goal [[0,1,2],[3,4,5],[6,7,8]]. Actions: move the gap up/down/left/right. Heuristic: misplaced tiles, 8 at the start and 0 at the goal; or Manhattan distance.</div></details>
+    <details><summary>Explain simulated annealing and its parameter problem.</summary><div class="ans">Slow cooling lets metal settle into low energy; the search analogue accepts worse moves with probability exp(−ΔE/T), lowering T over time, to escape local optima. Starting temperature, cooling rate, iterations per temperature and stopping rule all need care: too fast freezes a poor solution, too slow wastes time.</div></details>
+  </div>
+</section>
+
+<!-- ============ Chapter 3 ============ -->
+<section class="lec" id="q3a">
+  <div class="qhead"><span class="chapno">Chapter 3 · §1</span><h2>Living with not knowing</h2></div>
+  <p class="lede-ch">Chapter 2 assumed the agent could see its state and predict the result of its actions. Almost nothing in the world is so obliging. This chapter is about deciding well when you cannot be sure.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>A sensor reads 31 °C. Is the room "hot"? A machine has run for 400 days; will it fail tomorrow? An expert says "it's probably the pump". These are three quite different kinds of not-knowing. Can you say how they differ?</div>
+
+  <p>The first is vagueness: "hot" has no sharp edge, and a room can be somewhat hot and somewhat warm at once. <b>Fuzzy logic</b> handles this by letting a statement be partly true. The second is chance: the machine either will or will not fail, and what we lack is knowledge of which. <b>Probability theory</b> handles this, and most of this chapter is about it. The third is confidence in a rule of thumb: the expert's "probably" is not a measured frequency but a degree of belief attached to a diagnosis, which older expert systems represented as a <b>certainty factor</b>. Three tools, three kinds of doubt; the skill is matching tool to doubt.</p>
+
+  <h3>The question people get backwards</h3>
+  <p>Here is a puzzle that defeats most people on first meeting, including many doctors. One email in a hundred is junk. A filter catches 90% of junk, and wrongly flags 7% of legitimate mail. The filter has just flagged a message. How likely is it that the message really is junk?</p>
+  <p>The tempting answer is "about 90%". It is wrong by a factor of eight. The 90% tells you how often the filter fires <i>when junk is present</i>. You were asked something different: how often junk is present <i>when the filter fires</i>. Those are not the same, and the gap between them depends on how rare junk is in the first place — the <b>base rate</b>.</p>
+
+  <div class="box worked"><span class="tag">Worked example</span>Take 10,000 messages so the percentages become counts. One percent are junk: 100 junk, 9,900 legitimate. The filter catches 90% of the 100 junk messages — 90 of them. It also wrongly flags 7% of the 9,900 legitimate ones — 693 of them. So 783 messages are flagged altogether, and only 90 of those are junk. The probability that a flagged message is junk is 90 ÷ 783 ≈ 0.115, or about 11.5%. Written as a formula this is Bayes' theorem: P(junk | flagged) = P(flagged | junk)·P(junk) ÷ P(flagged) = (0.90 × 0.01) ÷ (0.90 × 0.01 + 0.07 × 0.99) ≈ 0.1149.</div>
+
+  <div class="lab" data-lab="bayes"><div class="lt"><span class="pill">Experiment 9</span><b>Move the base rate and watch the answer swing</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col">
+        <div class="ctl"><label>Base rate, P(junk) <output id="bRo">1%</output></label><input type="range" id="bR" min="0.1" max="50" step="0.1" value="1" aria-label="Base rate"></div>
+        <div class="ctl"><label>Sensitivity, P(flagged | junk) <output id="bSo">90%</output></label><input type="range" id="bS" min="50" max="100" step="1" value="90" aria-label="Sensitivity"></div>
+        <div class="ctl"><label>False-positive rate, P(flagged | legitimate) <output id="bFo">7%</output></label><input type="range" id="bF" min="0" max="30" step="0.5" value="7" aria-label="False positive rate"></div>
+        <button class="b sm sec" onclick="bayesReset()">Restore the original figures</button>
+      </div>
+      <div class="col">
+        <div>P(junk | flagged) = <span class="big" id="bP"></span></div>
+        <div class="fig"><svg viewBox="0 0 420 180" width="420" id="bTree" role="img" aria-label="Frequency tree"></svg></div>
+      </div>
+    </div>
+    <div class="fig"><svg viewBox="0 0 640 60" width="640" id="bBar" role="img" aria-label="Composition of flagged emails"></svg><div class="cap">Of the flagged messages: green are truly junk, red are legitimate mail caught by mistake.</div></div>
+  </div>
+
+  <p>Push the base rate up to 20% and the same filter becomes trustworthy; drop it to 0.1% and almost every flag is a false alarm. The filter has not changed. What has changed is how much legitimate mail there is for the 7% to act on. This is why a monitoring rule that is "quite accurate" can still drown an operations team in false alerts when the fault it looks for is rare — and why the first question to ask of any positive result is <i>how common is the thing we are testing for?</i></p>
+
+  <div class="box key"><span class="tag">Key idea</span>P(A | B) and P(B | A) are different numbers. The bridge between them is the base rate, and when the base rate is low a positive test is usually a false positive. Count it out with 10,000 cases if the formula feels slippery.</div>
+</section>
+
+<section class="lec" id="q3b">
+  <div class="qhead"><span class="chapno">Chapter 3 · §2</span><h2>Chains of chance and the value of a position</h2></div>
+  <p class="lede-ch">Probability so far has been about single events. Now we let time run. A system moves from state to state, each move a matter of chance, and we ask what a given state is worth.</p>
+
+  <p>A <b>Markov chain</b> is a set of states with, for each one, the probabilities of where it goes next. Its defining assumption is that the next step depends only on the present state, not on the path that led there. The figure shows a small maze: from A the walker goes to B with probability 0.8 and finishes at D with probability 0.2; from B, to C or D in the same proportions; from C, back to C or on to D. Each visit to a state also earns a reward — 1 at A, 2 at B, 3 at C, nothing at D.</p>
+
+  <div class="fig"><svg viewBox="0 0 640 300" width="640" role="img" aria-label="Markov chain with states A, B, C and D">
+    <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--ink)"/></marker></defs>
+    <g stroke="var(--ink)" stroke-width="2.5" fill="none" marker-end="url(#ar3)">
+      <path d="M118,80 L222,80"/><path d="M378,80 L482,80"/>
+      <path d="M100,125 L270,215"/><path d="M300,128 L300,205"/><path d="M500,125 L335,215"/>
+      <path d="M560,60 C640,20 640,140 565,105"/>
+    </g>
+    <circle cx="70" cy="80" r="48" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="70" y="72" text-anchor="middle" font-size="12">v = 5.7</text><text x="70" y="98" text-anchor="middle" font-weight="700" font-size="22">A</text>
+    <circle cx="300" cy="80" r="48" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="300" y="72" text-anchor="middle" font-size="12" fill="var(--red)" font-weight="700">v = ?</text><text x="300" y="98" text-anchor="middle" font-weight="700" font-size="22">B</text>
+    <circle cx="530" cy="80" r="48" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="530" y="72" text-anchor="middle" font-size="12">v = 8.3</text><text x="530" y="98" text-anchor="middle" font-weight="700" font-size="22">C</text>
+    <rect x="240" y="210" width="120" height="60" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="300" y="235" text-anchor="middle" font-weight="700" font-size="20">D</text><text x="300" y="258" text-anchor="middle" font-size="12">v = 0 · Finish</text>
+    <text x="170" y="68" text-anchor="middle" font-size="12">ρ = 0.8</text><text x="170" y="100" text-anchor="middle" font-size="13" font-weight="700">r = 1</text>
+    <text x="430" y="68" text-anchor="middle" font-size="12">ρ = 0.8</text><text x="430" y="100" text-anchor="middle" font-size="13" font-weight="700">r = 2</text>
+    <text x="150" y="190" font-size="12">ρ = 0.2</text><text x="310" y="170" font-size="12">ρ = 0.2</text><text x="420" y="190" font-size="12">ρ = 0.2</text>
+    <text x="625" y="55" font-size="13" font-weight="700">r = 3</text><text x="625" y="120" font-size="12">ρ = 0.8</text>
+    <text x="375" y="260" font-size="13" font-weight="700">r = 0</text>
+  </svg><div class="cap">A four-state chain. ρ marks a transition probability, r a reward. The values of A and C are given; B is for you.</div></div>
+
+  <div class="think"><span class="tag">Pause and think</span>Write the chain as a table, one row per state, each entry the probability of moving to the column's state. What must every row add up to? What does the row for D, the finish, look like?</div>
+
+  <div class="lab" data-lab="mc"><div class="lt"><span class="pill">Experiment 10</span><b>Fill in the transition matrix</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Rows are "from", columns are "to". Each row must sum to 1. D is a finishing state, so by convention it stays at D with probability 1.</p>
+    <table class="t" id="mcTable"></table>
+    <button class="b sm" onclick="checkMC()">Check</button> <button class="b sm sec" onclick="fillMC()">Show answer</button> <span id="mcRes" style="margin-left:.6rem" aria-live="polite"></span>
+  </div>
+
+  <h3>What is a state worth?</h3>
+  <p>Suppose you find yourself at B. You collect 2 at once. Then, with probability 0.8, you move to C — which the figure tells us is worth 8.3 in expected future reward — and with probability 0.2 you finish, worth nothing more. The expected value of where you go next is 0.8 × 8.3 + 0.2 × 0 = 6.64. One more ingredient: a reward later counts for less than the same reward now, so we multiply future value by a <b>discount factor</b> γ, here 0.8. The value of B is therefore 2 + 0.8 × 6.64 = 7.312.</p>
+  <p>That is the <b>Bellman equation</b> in miniature: the value of a state is its immediate reward plus the discounted, probability-weighted value of its successors. It is worth checking the convention: treating the 2 as B's own reward gives v(A) = 1 + 0.8 × 0.8 × 7.312 ≈ 5.68, which matches the 5.7 printed on the figure. Treating the 2 as earned only on the B→C arrow would not. When a figure is ambiguous, consistency with what it <i>does</i> tell you is the way to resolve it.</p>
+
+  <div class="lab" data-lab="vb"><div class="lt"><span class="pill">Experiment 11</span><b>The calculation, with the discount under your control</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col">
+        <div class="ctl"><label>Discount factor γ <output id="gmo">0.80</output></label><input type="range" id="gm" min="0" max="1" step="0.05" value="0.8" aria-label="Discount factor"></div>
+        <p class="muted">v(B) = r<sub>B</sub> + γ × [0.8 × v(C) + 0.2 × v(D)], with r<sub>B</sub> = 2, v(C) = 8.3, v(D) = 0.</p>
+      </div>
+      <div class="col">
+        <dl class="kv">
+          <dt>① Expected future value</dt><dd id="vb1"></dd>
+          <dt>② Discounted by γ</dt><dd id="vb2"></dd>
+          <dt>③ Plus the immediate reward, 2</dt><dd id="vb3" style="color:var(--red);font-weight:700"></dd>
+          <dt>Check: v(A) = 1 + γ·0.8·v(B)</dt><dd id="vbA"></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="box key"><span class="tag">Key idea</span>Value = immediate reward + γ × (expected value of what comes next). Average the futures first, discount second, add the present last. Set γ to 0 and only the present counts; set it to 1 and the future counts in full.</div>
+</section>
+
+<section class="lec" id="q3c">
+  <div class="qhead"><span class="chapno">Chapter 3 · §3</span><h2>Adding choice: Markov decision processes</h2></div>
+  <p class="lede-ch">In the chain above the walker merely drifts. Give the walker a choice at each state and you have a Markov decision process — the model behind reinforcement learning, and behind a great deal of what is now called AI.</p>
+
+  <p>An <b>MDP</b> has states, as before, but at each state there are actions to choose from, and each action has its own probabilities of where it leads and what it pays. A rule saying which action to take in each state is a <b>policy</b>. The agent's objective is not to grab the largest next reward but to choose a policy that maximises the <i>expected total discounted reward</i> over the whole future, E[Σ γ<sup>t</sup> R<sub>t+1</sub>]. A manager deciding whether to restart a machine now or wait for it to cool is facing exactly this trade-off: quick output against a higher chance of failure later.</p>
+
+  <div class="fig"><svg viewBox="0 0 560 420" width="520" role="img" aria-label="MDP with states A, B and C">
+    <g stroke="var(--ink)" stroke-width="2.5" fill="none" marker-end="url(#ar3)">
+      <path d="M345,105 L160,105"/><path d="M160,140 L345,140"/>
+      <path d="M380,185 L300,320"/><path d="M335,345 L410,200"/>
+      <path d="M175,290 L135,195"/><path d="M175,290 C150,330 190,350 215,360"/>
+    </g>
+    <path d="M175,290 L215,330" stroke="var(--ink)" stroke-width="2.5"/>
+    <circle cx="175" cy="290" r="7" fill="var(--ink)"/>
+    <circle cx="110" cy="120" r="55" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="110" y="130" text-anchor="middle" font-weight="700" font-size="26">A</text>
+    <circle cx="400" cy="120" r="55" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="400" y="130" text-anchor="middle" font-weight="700" font-size="26">B</text>
+    <circle cx="265" cy="370" r="55" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="265" y="380" text-anchor="middle" font-weight="700" font-size="26">C</text>
+    <text x="252" y="80" text-anchor="middle" font-weight="700" font-size="14">r = 2</text><text x="252" y="97" text-anchor="middle" font-size="12">ρ = 0.5</text><text x="330" y="97" font-size="12" font-style="italic">ba</text>
+    <text x="252" y="162" text-anchor="middle" font-size="12">ρ = 0.5</text><text x="252" y="182" text-anchor="middle" font-weight="700" font-size="14">r = −8</text><text x="158" y="160" font-size="12" font-style="italic">ab</text>
+    <text x="310" y="250" font-weight="700" font-size="14">r = −2</text><text x="310" y="268" font-size="12">ρ = 0.5</text><text x="365" y="180" font-size="12" font-style="italic">bc</text>
+    <text x="400" y="270" font-size="12">ρ = 0.5</text><text x="400" y="290" font-weight="700" font-size="14">r = 8</text><text x="330" y="365" font-size="12" font-style="italic">cb</text>
+    <text x="90" y="240" font-size="12">ρ = 0.25</text><text x="215" y="300" font-weight="700" font-size="14">r = 4</text><text x="130" y="330" font-size="12">ρ = 0.75</text><text x="205" y="330" font-size="12" font-style="italic">ca</text>
+  </svg><div class="cap">A three-state decision process with actions ab, ba, bc, ca and cb. Look carefully: not every action's outcomes are fully specified.</div></div>
+
+  <h3>Judging a policy, then improving it</h3>
+  <p>Two operations do most of the work in this field. <b>Policy evaluation</b> asks how good a given policy is: for each state, average over the actions the policy takes, and for each action average over its outcomes, of reward plus discounted value of the next state. Done <i>synchronously</i>, every state's new value is computed from the old values and then all are replaced at once; you never use a freshly computed v(A) to work out v(B) in the same sweep. <b>Policy improvement</b> then asks, in each state, which single action has the highest such value — written Q(s, a) — and adopts it. Alternate the two and the policy climbs towards the best one.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Before touching the experiment: one action pays 1 now and leads somewhere worth 6; another pays 3 now and leads somewhere worth 0. With γ = 0.5, which should a rational agent prefer?</div>
+
+  <div class="lab" data-lab="mdp"><div class="lt"><span class="pill">Experiment 12</span><b>One state, two actions, both operations</b><span class="mark">✓ completed</span></div>
+    <p class="muted">The policy takes each action half the time. Change the figures and watch one synchronous evaluation produce v₂, then watch improvement pick the better action.</p>
+    <div class="row">
+      <div class="col">
+        <table class="t"><tr><th></th><th>Action 1</th><th>Action 2</th></tr>
+          <tr><td>Immediate reward r</td><td><input type="number" id="r1" value="2" step="1" style="width:70px" aria-label="reward 1"></td><td><input type="number" id="r2" value="-2" step="1" style="width:70px" aria-label="reward 2"></td></tr>
+          <tr><td>Old value of next state v₁(s′)</td><td><input type="number" id="v1" value="2" step="0.5" style="width:70px" aria-label="value 1"></td><td><input type="number" id="v2" value="2" step="0.5" style="width:70px" aria-label="value 2"></td></tr></table>
+        <div class="ctl" style="max-width:300px"><label>γ <output id="mgo">0.50</output></label><input type="range" id="mg" min="0" max="1" step="0.05" value="0.5" aria-label="gamma"></div>
+      </div>
+      <div class="col">
+        <dl class="kv">
+          <dt>Q(s, action 1) = r₁ + γ·v₁</dt><dd id="q1"></dd>
+          <dt>Q(s, action 2) = r₂ + γ·v₂</dt><dd id="q2"></dd>
+          <dt>Evaluation: v₂(s) = ½Q₁ + ½Q₂</dt><dd id="vpe" style="font-weight:700;color:var(--red)"></dd>
+          <dt>Improvement: choose the larger Q</dt><dd id="pimp" style="font-weight:700"></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="box worked"><span class="tag">Worked example</span>With the experiment's defaults — rewards 2 and −2, both leading to states of old value 2, γ = 0.5 — the two action values are 2 + 0.5 × 2 = 3 and −2 + 0.5 × 2 = −1. Under the half-and-half policy the state is worth their average, 1. Improvement would then switch the policy to action 1. And the answer to the question above: the action paying 1 now is worth 1 + 0.5 × 6 = 4; the one paying 3 now is worth 3 + 0.5 × 0 = 3. Prefer the first, despite the smaller immediate payment.</div>
+
+  <h3>A word about the figure</h3>
+  <p>You may have tried to evaluate the three-state process in the figure and found you could not. That is not your failing. The arrow from A to B is marked 0.5, but where the other half of the probability goes is not stated; at C the arrows marked 0.25, 0.75 and 0.5 cannot all belong to one action. Without a complete transition model there is no unique answer, and the honest response is to say so, state the method, and ask for the missing information. You will meet under-specified problems far more often than tidy ones.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>A policy is a rule for acting; its quality is the expected discounted return it earns. Evaluate it by averaging over actions and outcomes; improve it by choosing, in each state, the action with the highest Q. And when the model is incomplete, say so.</div>
+
+  <div class="summary"><h3>Chapter 3 in brief</h3><ul>
+    <li>Probability, fuzzy logic and certainty factors address different kinds of uncertainty: chance, vagueness and confidence in a rule.</li>
+    <li>Bayes' theorem converts P(B|A) into P(A|B) through the base rate; with a rare condition, most positive results are false positives (the junk-mail filter: 11.5%, not 90%).</li>
+    <li>A Markov chain's transition matrix has rows summing to 1; a state's value is reward plus discounted expected successor value (v(B) = 7.31 with γ = 0.8).</li>
+    <li>An MDP adds actions; policy evaluation and policy improvement alternate to find a policy maximising expected discounted return.</li>
+  </ul></div>
+  <div class="review"><h3>Questions for review</h3>
+    <details><summary>Name three ways of handling uncertainty and give an example of each.</summary><div class="ans">Probability theory — a 90% chance that an email is junk. Fuzzy logic — a temperature that is partly "warm". Certainty factors — an expert system attaching a confidence to a diagnosis.</div></details>
+    <details><summary>With 1% junk, 90% sensitivity and a 7% false-positive rate, what is P(junk | flagged)?</summary><div class="ans">(0.90 × 0.01) ÷ (0.90 × 0.01 + 0.07 × 0.99) = 0.009 ÷ 0.0783 ≈ 0.1149, about 11.5%. In counts: 90 true positives against 693 false positives out of 10,000.</div></details>
+    <details><summary>Write the transition matrix for the four-state chain, and find v(B) with γ = 0.8.</summary><div class="ans">Rows A = (0, 0.8, 0, 0.2), B = (0, 0, 0.8, 0.2), C = (0, 0, 0.8, 0.2), D = (0, 0, 0, 1). v(B) = 2 + 0.8 × (0.8 × 8.3 + 0.2 × 0) = 7.312, consistent with v(A) ≈ 5.7.</div></details>
+    <details><summary>What is a rational agent's objective in an MDP, and how are policies evaluated and improved?</summary><div class="ans">Maximise expected total discounted reward, E[Σ γ<sup>t</sup> R<sub>t+1</sub>], by following a policy. Evaluation: v(s) = Σ<sub>a</sub> π(a|s) Σ<sub>s′</sub> P(s′|s,a)[R + γ v(s′)], computed synchronously from old values. Improvement: in each state choose the action with the largest Q(s,a) = Σ<sub>s′</sub> P(s′|s,a)[R + γ v(s′)]. The figure's incomplete transitions prevent unique numbers for it.</div></details>
+  </div>
+</section>
+
+<!-- ============ Chapter 4 ============ -->
+<section class="lec" id="q4a">
+  <div class="qhead"><span class="chapno">Chapter 4 · §1</span><h2>Why language is harder than it looks</h2></div>
+  <p class="lede-ch">We use language all day without noticing how much of it is guesswork. A machine notices, because it cannot guess the way we do.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>"I saw the man with a telescope." Who has the telescope? Read it again. Can you make it mean the other thing?</div>
+
+  <p>If you managed both readings, you have found a <b>syntactic ambiguity</b>: the words are perfectly clear, but they can be grouped in two ways. Either <i>with a telescope</i> describes how I saw, or it describes the man. Nothing in the sentence decides. There is a second, simpler kind. "I went to the bank" is ambiguous because one word has two meanings — a place that holds money and the side of a river. That is <b>lexical ambiguity</b>.</p>
+  <p>Humans resolve both without effort, using everything around the sentence: what was said before, what the speaker is likely to want, what the world is like. A system that processes language must do the same, and when the surrounding context is thin it will sometimes pick the wrong reading. Instructions at work are full of such traps. "Send the report to the manager with the updated figures" could mean the report must contain the figures, or that it goes to the manager who already has them; a careful reader asks, and a careful writer rephrases.</p>
+
+  <div class="lab" data-lab="amb"><div class="lt"><span class="pill">Experiment 13</span><b>Find both readings</b><span class="mark">✓ completed</span></div>
+    <div id="ambig"></div>
+  </div>
+
+  <div class="box key"><span class="tag">Key idea</span>Ambiguity is a sentence with more than one reasonable interpretation. Lexical: one word, several meanings. Syntactic: one string of words, several structures. Context resolves it — for people effortlessly, for machines only when the context is supplied.</div>
+</section>
+
+<section class="lec" id="q4b">
+  <div class="qhead"><span class="chapno">Chapter 4 · §2</span><h2>Networks of simple units</h2></div>
+  <p class="lede-ch">An artificial neural network is less mysterious than its name. It is a stack of layers, each turning a list of numbers into another list of numbers by multiplying and adding. What makes it interesting is what the shape of the stack does.</p>
+
+  <p>Picture a layer of 1,000 units feeding a layer of 1,000 units, every unit in the first connected to every unit in the second. Each connection carries a number — a <b>weight</b> — and there are 1,000 × 1,000 = a million of them. Call this Network A. Now picture Network B: 1,000 units feeding a narrow layer of 100, which feeds 1,000 again. It has 1,000 × 100 + 100 × 1,000 = 200,000 weights, a fifth as many.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>B is cheaper in every obvious way. What has it given up?</div>
+
+  <div class="lab" data-lab="ann"><div class="lt"><span class="pill">Experiment 14</span><b>Squeeze the middle layer</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col" style="flex:0 0 300px"><div class="fig"><svg viewBox="0 0 300 260" width="300" id="annSvg" role="img" aria-label="Networks A and B"></svg></div></div>
+      <div class="col">
+        <div class="ctl"><label>Units in the middle layer, k <output id="ko">100</output></label><input type="range" id="k" min="10" max="1000" step="10" value="100" aria-label="hidden units"></div>
+        <dl class="kv">
+          <dt>Weights in A</dt><dd>1,000 × 1,000 = <b>1,000,000</b></dd>
+          <dt>Weights in B</dt><dd id="wB"></dd>
+          <dt>B as a share of A</dt><dd id="wR"></dd>
+          <dt>Most independent numbers B can pass</dt><dd id="wK"></dd>
+        </dl>
+        <p class="muted">Push k all the way to 1,000: B now has twice A's weights and still cannot do more than A, because two linear layers in a row amount to one.</p>
+      </div>
+    </div>
+  </div>
+
+  <p>With fewer weights B needs less memory and fewer multiplications, and its narrow waist may help it generalise: forced to summarise 1,000 numbers in 100, it cannot simply memorise the training data, so it is less prone to <b>overfitting</b>. "May" is the honest word — the same squeeze can throw away something that mattered.</p>
+  <p>What B has given up is capacity. If the layers are linear — plain multiplying and adding, no curve in between — then everything B does must pass through 100 numbers, and the mapping it computes has <b>rank</b> at most 100. A can compute any linear mapping of rank up to 1,000. Think of a thousand sensor readings sent down a channel that carries only a hundred independent values; efficient, but detail is lost. This is a mathematical limit, not something more training will fix.</p>
+
+  <h3>The smallest possible network</h3>
+  <p>To see what one unit actually does, build the simplest function there is. NOT takes a single input x and returns its opposite: 0 becomes 1, 1 becomes 0. A unit computes a weighted sum of its inputs, adds a bias, and then applies an activation — here a <b>step</b>: output 1 if the sum is at least zero, 0 otherwise. For NOT we need a larger input to push the output <i>down</i>, so the weight must be negative. Take w = −1 and b = 0.5. For x = 0 the sum is 0.5, so the output is 1; for x = 1 the sum is −0.5, so the output is 0. Done. Equivalently, the unit fires when −x crosses a threshold of −0.5.</p>
+
+  <div class="lab" data-lab="neuron"><div class="lt"><span class="pill">Experiment 15</span><b>Build NOT from one unit</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col">
+        <div class="ctl"><label>Weight w <output id="wo">-1.0</output></label><input type="range" id="w" min="-3" max="3" step="0.1" value="-1" aria-label="weight"></div>
+        <div class="ctl"><label>Bias b <output id="bo">0.5</output></label><input type="range" id="b" min="-3" max="3" step="0.1" value="0.5" aria-label="bias"></div>
+        <p class="muted">Output = step(w·x + b). Find any w and b that satisfy both rows — there are many — then try to break it.</p>
+        <button class="b sm sec" onclick="document.getElementById('w').value=-1;document.getElementById('b').value=0.5;neuron()">Restore w = −1, b = 0.5</button>
+      </div>
+      <div class="col">
+        <div class="fig"><svg viewBox="0 0 320 130" width="320" id="neuSvg" role="img" aria-label="Single neuron"></svg></div>
+        <table class="t"><tr><th class="c">x</th><th class="c">w·x + b</th><th class="c">Output</th><th class="c">Target</th><th class="c"></th></tr><tbody id="neuT"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <p>Notice that this little unit needed a step activation to give a yes-or-no answer, whereas the two big networks above were assumed linear. Activation functions are what allow stacked layers to compute something more than a single linear map — but that is the next course, not this one.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>A layer is weights; a bottleneck cuts weights, memory and arithmetic and may curb overfitting, at the cost of capacity — a linear network's rank cannot exceed its narrowest layer. A single unit with a negative weight and a step activation computes NOT.</div>
+</section>
+
+<section class="lec" id="q4c">
+  <div class="qhead"><span class="chapno">Chapter 4 · §3</span><h2>Learning to ask the right question first</h2></div>
+  <p class="lede-ch">A decision tree is the most legible kind of machine learning: a sequence of questions, each chosen because it does the most to settle the matter. "Does the most" has a precise meaning, and it is the last idea in this book.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Six students sat a module. Four passed. If I tell you nothing else, how uncertain are you about any one student's result? Now suppose all six had passed. How uncertain then?</div>
+
+  <p>That uncertainty has a measure, <b>entropy</b>. For two outcomes with proportions p and 1 − p, it is H = −p log₂ p − (1 − p) log₂ (1 − p), in bits. If every student passed, p = 1 and H = 0: no uncertainty at all. If half passed, H = 1 bit, the most uncertain a two-way outcome can be. For four of six, H ≈ 0.918: nearly maximal, because both results are common, but a little below 1 because passing is the likelier.</p>
+
+  <div class="lab" data-lab="ent"><div class="lt"><span class="pill">Experiment 16</span><b>The shape of uncertainty</b><span class="mark">✓ completed</span></div>
+    <div class="row">
+      <div class="col"><div class="fig"><svg viewBox="0 0 400 230" width="400" id="entSvg" role="img" aria-label="Entropy curve"></svg></div></div>
+      <div class="col">
+        <div class="ctl"><label>Proportion passing, p <output id="po">0.667</output></label><input type="range" id="p" min="0" max="1" step="0.001" value="0.667" aria-label="proportion"></div>
+        <div>H = −p·log₂p − (1−p)·log₂(1−p) = <span class="big" id="entV"></span> bits</div>
+        <p class="muted">The curve peaks at p = 0.5 and falls to zero at either end. Four of six passing sits at 0.9183.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Which question reduces the uncertainty most?</h3>
+  <p>Suppose we know two things about each student: their previous grade — poor, moderate or excellent — and whether they revised. Which fact is more useful for predicting a pass? Split the students by grade and look inside each group. The poor group has one pass and one fail: entropy 1. So does the moderate group. The excellent group has two passes: entropy 0. Weighted by size — two students in each — the entropy that <i>remains</i> once you know the grade is (1 + 1 + 0) ÷ 3 ≈ 0.667. Now split by revision instead. Everyone who revised passed: entropy 0. Of the three who did not, one passed and two failed: entropy 0.918. Remaining entropy, (0 + 0.918) ÷ 2 ≈ 0.459.</p>
+  <p>The <b>information gain</b> of a question is the entropy before it minus the entropy after. Grade: 0.918 − 0.667 = 0.252 bits. Revision: 0.918 − 0.459 = 0.459 bits. Revision tells us more, so a decision tree asks about it first. On the branch where the answer is no, uncertainty remains, and there the tree asks about grade. On the branch where the answer is yes, nothing remains to ask.</p>
+
+  <div class="lab" data-lab="dt"><div class="lt"><span class="pill">Experiment 17</span><b>Change the data and watch the tree rebuild itself</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Click any entry in the Passed column to flip it. Every figure, and the tree, recalculates at once. Can you make grade the better first question?</p>
+    <div class="row">
+      <div class="col" style="flex:0 0 260px">
+        <table class="t" id="dtT"><tr><th>Grade</th><th>Revised</th><th>Passed</th></tr></table>
+        <button class="b sm sec" onclick="dtReset()">Restore the original data</button>
+      </div>
+      <div class="col"><div id="dtOut"></div></div>
+    </div>
+    <div class="fig"><svg viewBox="0 0 560 220" width="560" id="dtTree" role="img" aria-label="Decision tree"></svg><div class="cap">The tree induced from the current table; the root is whichever attribute gains the most information.</div></div>
+  </div>
+
+  <p>Two cautions. The weighting by group size is not optional: with groups of unequal size, a plain average of entropies would mislead. And the conclusion belongs to this table of six, not to the world; nothing here shows that revision matters more than ability in general. What the method gives you is a principled way to order questions, which is also why a troubleshooting guide that begins "is the machine receiving power?" is usually a good one — it is the question that most reduces what remains unknown.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>Entropy measures how mixed the outcomes are; information gain measures how much a question reduces that mixture, using a size-weighted average over the groups it creates. A decision tree asks the highest-gain question first, and recurses.</div>
+
+  <div class="summary"><h3>Chapter 4 in brief</h3><ul>
+    <li>Ambiguity is lexical (one word, several senses) or syntactic (one sentence, several structures); context resolves it.</li>
+    <li>A bottleneck layer cuts weights (1,000,000 → 200,000) and may reduce overfitting, but a linear network's rank is capped by its narrowest layer.</li>
+    <li>One unit with w = −1, b = 0.5 and a step activation computes NOT.</li>
+    <li>Entropy of 4/6 is 0.9183 bits; conditional entropy by grade 0.6667, by revision 0.4591; information gains 0.2516 and 0.4591; revision is the root.</li>
+  </ul></div>
+  <div class="review"><h3>Questions for review</h3>
+    <details><summary>Explain ambiguity in natural language with two examples of different kinds.</summary><div class="ans">A sentence or word with more than one reasonable interpretation. Lexical: "I went to the bank" — financial or river. Syntactic: "I saw the man with a telescope" — I used it, or he held it.</div></details>
+    <details><summary>Compare a 1,000→1,000 linear network with a 1,000→100→1,000 one.</summary><div class="ans">A: 1,000,000 weights, full rank up to 1,000. B: 200,000 weights — less memory, fewer multiplications, possibly less overfitting — but rank at most 100, so A has the greater linear capacity.</div></details>
+    <details><summary>Represent NOT as a single unit, including the threshold.</summary><div class="ans">Weight w = −1, bias b = 0.5, step activation: F(x) = 1 if −x + 0.5 ≥ 0 else 0. F(0) = 1, F(1) = 0. Threshold on the weighted input −x is −0.5.</div></details>
+    <details><summary>For the six-student table, compute H(passed), the conditional entropies, the information gains, and choose the root.</summary><div class="ans">H(passed) = 0.9183. H(passed | grade) = (1 + 1 + 0)/3 = 0.6667; H(passed | revised) = (0 + 0.9183)/2 = 0.4591. IG(grade) = 0.2516; IG(revised) = 0.4591. Root: revised. Then: yes → pass; no → grade? excellent → pass, otherwise fail.</div></details>
+  </div>
+</section>
+
+<!-- ============ Chapter 5 ============ -->
+<section class="lec" id="claude">
+  <div class="qhead"><span class="chapno">Chapter 5</span><h2>Using an AI assistant well: the Claude Certified Associate syllabus</h2></div>
+  <p class="lede-ch">The first four chapters were about how intelligent systems work. This one is about working <i>with</i> one — the habits that separate people who get reliable value from an assistant from people who get fluent nonsense. It happens that Anthropic has written those habits down as the syllabus of a credential, and the syllabus makes a good spine for the chapter.</p>
+
+  <p>The <b>Claude Certified Associate – Foundations</b> (exam code CCAO-F) is Anthropic's non-technical certification: sixty questions in two hours, scored out of 1,000 with 720 to pass, valid for a year, no programming assumed. Its seven domains are weighted, and the weighting tells you what the authors think matters most. Syllabus details change; treat Anthropic's current exam guide as the authority.</p>
+
+  <div class="lab" data-lab="dom"><div class="lt"><span class="pill">Experiment 18</span><b>The seven domains and their weights</b><span class="mark">✓ completed</span></div>
+    <div class="dom" id="domGrid" role="tablist"></div>
+    <div id="domDetail" class="box key" style="margin-top:.6rem"></div>
+  </div>
+
+  <h3>Asking well</h3>
+  <p>An assistant can only work from what it is given. A good request states the task, says who the result is for and what it is for, sets the constraints — length, tone, format — and, where it helps, shows an example of what good looks like. Large jobs go better broken into steps, and a first answer is a draft to be refined rather than a verdict to be accepted. Above all, supply the source material: an assistant working from a document you have pasted is on far firmer ground than one working from recollection.</p>
+
+  <div class="lab" data-lab="prompt"><div class="lt"><span class="pill">Experiment 19</span><b>From a weak request to a strong one</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Switch on the elements a good request contains and watch it assemble.</p>
+    <div class="row">
+      <div class="col">
+        <div class="exam" style="display:block;margin-top:0"><b>Weak request</b><br><span class="en">"Write something about our new product."</span></div>
+        <div id="promptToggles"></div>
+      </div>
+      <div class="col">
+        <div class="muted">Assembled request</div>
+        <div style="border:1px solid var(--line-2);border-radius:3px;padding:.8rem 1rem;font-size:1.02rem;line-height:1.6;min-height:180px;background:var(--card)" id="promptOut"></div>
+        <div style="margin-top:.5rem"><span class="muted">Completeness</span><div class="bar"><i id="promptBar" style="width:0"></i></div></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Checking the answer — the heaviest domain</h3>
+  <p>Chapter 1 ended with the warning that fluency is not correctness; Chapter 3 showed that a confident positive from a detector is, when the thing detected is rare, usually wrong. Put the two together and you have the single most examined competence in this syllabus: <b>evaluating output</b>. Check facts against a source you trust. Ask for the reasoning or the citation and follow it. Re-run the arithmetic yourself. Ask not "is this plausible?" but "is this fit for the purpose I have?" And remember that whatever you send, publish or decide on the strength of an assistant's answer is yours; the assistant is not accountable, you are.</p>
+
+  <h3>Choosing the tool</h3>
+  <p>Models come in tiers that trade capability against speed and cost — a small, fast tier for routine high-volume work, a middle tier for most drafting and analysis, the largest for the hardest reasoning — and paying for capability you do not need is simply waste. Features likewise have purposes. A plain chat answers a quick question. A <b>Project</b> holds standing instructions and reference files for work that recurs. A research mode produces a sourced report. An artifact is a document or tool you will keep and edit. The skill is matching the tool to the job, and noticing when a job is not yours at all: anything that needs the API, automation, or integration with other systems belongs with a developer or architect, and recognising that moment is itself on the syllabus.</p>
+
+  <div class="lab" data-lab="pick"><div class="lt"><span class="pill">Experiment 20</span><b>Six situations, six choices</b><span class="mark">✓ completed</span></div>
+    <div id="pickBox"></div>
+  </div>
+
+  <h3>Keeping the assistant informed, and keeping the organisation safe</h3>
+  <p>A Project's instructions set the standing rules — audience, tone, house style — and its knowledge files supply the references. Both go stale. An outdated policy document produces confidently outdated answers, so prune as well as add, and keep the whole small enough to sit comfortably within the assistant's context. On the other side of the ledger: do not paste confidential, personal or regulated data without authorisation; follow your organisation's policy and the provider's terms; say when AI has helped where that matters; watch for bias and for copyrighted material; and keep a person in the loop for any consequential decision. Convenience never outranks confidentiality.</p>
+
+  <h3>When it goes wrong</h3>
+  <p>Vague output usually means a vague request — add specifics and an example. An inconsistent format means you did not state the format — state it, and show one. Wrong facts mean the assistant was recalling rather than reading — supply the source, ask for citations, verify. A conversation that has lost the thread is best restarted with a short summary, or moved into a Project. Something slow or expensive may simply want a smaller tier. Almost every failure has a cause on this short list, and almost every cause has a remedy that costs a minute.</p>
+
+  <div class="box key"><span class="tag">How the two halves of this book meet</span>
+  <table class="t"><tr><th>Earlier chapter</th><th>Where it returns here</th></tr>
+  <tr><td>Turing Test — imitation is not understanding</td><td>Evaluating output: never take fluency as evidence of correctness</td></tr>
+  <tr><td>PEAS — define success before you build</td><td>Designing a workflow: state the performance measure for an AI-assisted process</td></tr>
+  <tr><td>Bayes and base rates</td><td>A confident flag from a rare-event detector is mostly false alarms</td></tr>
+  <tr><td>Abstraction in the 8-puzzle</td><td>Asking well: give the details that matter and leave out the rest</td></tr>
+  <tr><td>Heuristics and annealing</td><td>Iterating: a first draft is a starting point, not a place to settle</td></tr>
+  <tr><td>Entropy and information gain</td><td>Troubleshooting: ask the question that most reduces uncertainty first</td></tr></table></div>
+
+  <div class="summary"><h3>Chapter 5 in brief</h3><ul>
+    <li>Seven domains; output evaluation (21%) carries the most weight, then workflow design (16%), governance (15%) and prompting (14%).</li>
+    <li>Ask with task, audience, constraints, examples and sources; evaluate against trusted sources and fitness for purpose; the human stays accountable.</li>
+    <li>Match model tier and feature to the job; refer API and integration work to developers and architects.</li>
+    <li>Keep Project instructions and knowledge current; protect confidential data; fix weak output by fixing the request.</li>
+  </ul></div>
+</section>
+
+<!-- ============ Formulae ============ -->
+<section class="lec" id="formulas">
+  <div class="qhead"><span class="chapno">Appendix A</span><h2>Formulae</h2></div>
+  <table class="t">
+    <tr><th style="width:28%">Name</th><th>Formula</th><th>In one line</th></tr>
+    <tr><td>Bayes' theorem</td><td><code>P(A|B) = P(B|A)·P(A) / P(B)</code></td><td>Think about the base rate P(A) first</td></tr>
+    <tr><td>State value (Markov chain)</td><td><code>V(s) = Σ P(s′|s)·[R + γ·V(s′)]</code></td><td>Immediate reward plus discounted future</td></tr>
+    <tr><td>Policy evaluation</td><td><code>Vπ(s) = Σₐ π(a|s) Σₛ′ P(s′|s,a)·[R + γ·Vπ(s′)]</code></td><td>Synchronous: new values from old values only</td></tr>
+    <tr><td>Annealing acceptance</td><td><code>P = exp(−ΔE / T)</code></td><td>Explore while hot, converge when cold</td></tr>
+    <tr><td>Entropy</td><td><code>H(X) = −Σ pᵢ·log₂ pᵢ</code></td><td>50/50 = 1 bit</td></tr>
+    <tr><td>Information gain</td><td><code>IG(X) = H(Y) − H(Y|X)</code></td><td>Largest gain becomes the root</td></tr>
+    <tr><td>8-puzzle states</td><td><code>9! = 362,880; reachable 181,440</code></td><td>9! is an over-estimate</td></tr>
+    <tr><td>Weight counts</td><td><code>A: 1000×1000; B: 1000×k + k×1000</code></td><td>k = 100 → 200,000</td></tr>
+  </table>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section class="lec" id="quiz">
+  <div class="qhead"><span class="chapno">Appendix B</span><h2>Self-assessment <span class="marks" id="quizScore" style="float:right;margin-top:.5rem">0 / 16</span></h2></div>
+  <p>Sixteen questions across all five chapters. Each shows an explanation once answered, and your score is kept in this browser so you can come back to it.</p>
+  <div id="quizBox"></div>
+  <button class="b sec" id="quizReset" onclick="quizResetAsk(this)">Start again</button>
+</section>
+
+<div class="foot">Independent teaching material, not endorsed by Anthropic · certification details follow Anthropic's published outline and may change</div>
+</main>
+</div>
+
+<script src="course.js"></script>
+</body>
+</html>
