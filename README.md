@@ -1,19 +1,19 @@
-# AI Foundations: An Interactive Course
+# Introduction to Artificial Intelligence
 
-An interactive introduction to artificial intelligence for working professionals. Explore core ideas through concise lessons, worked examples, and browser-based experiments.
+A hands-on introduction to artificial intelligence for working professionals. Each topic is a short session built around a prediction, an experiment, and a practical application.
 
 ## Course agenda
 
-The course is designed to be followed in order. It moves from the foundations of intelligent agents through search, uncertainty, language, and learning, then considers practical AI use at work.
+The six chapters are designed to be followed in order:
 
 1. **What is an intelligent agent?** — The Turing Test, PEAS descriptions, and task environments.
 2. **Deciding and searching** — Reflex and goal-based agents, the 8-puzzle, and simulated annealing.
 3. **Reasoning under uncertainty** — Bayes' rule, Markov chains, and Markov decision processes.
-4. **Language and learning** — Ambiguity in language, neural networks, entropy, and decision trees.
-5. **AI at work** — Using AI assistants effectively and an introduction to the Claude Certified Associate – Foundations syllabus.
-6. **Appendices** — A formula reference and a 16-question self-assessment.
+4. **Language and learning** — Ambiguity, neural networks, entropy, and decision trees.
+5. **How language models work** — Next-word prediction, context, and errors and remedies.
+6. **Working with Claude** — Prompting, evaluating output, choosing tools and models, workflows, Projects, governance, and troubleshooting.
 
-The chapters include interactive experiments, review questions, and worked examples. Progress is saved in the current browser.
+The course includes 36 interactive experiments, review questions, practical tasks, a formula reference, a self-assessment, and further reading. Progress, quiz answers, and notes are saved in the current browser.
 
 ## Get started
 
@@ -35,7 +35,7 @@ npm run preview
 
 ## About the project
 
-The course is built with React and Vite. Lesson content is in `src/content/`, styles are in `src/styles.css`, and the interactive course app is in `src/`. Browser-based exercise logic is in `public/course.js`.
+The course is built with React and Vite. Lesson markup is in `src/content/course-content.html`, styles are in `src/styles.css`, and browser-based exercise logic is in `public/course.js`. The React app mounts and coordinates the course in `src/`.
 
 ## Acknowledgement
 

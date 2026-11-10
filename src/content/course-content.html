@@ -4,7 +4,7 @@
   <button class="tb menu-btn" aria-label="Open contents" data-action="toggle-menu">Menu</button>
   <div class="brand">AI · Foundations<small>Interactive course · for working professionals</small></div>
   <div class="prog" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progbar"><i id="prog"></i></div>
-  <div class="stat" id="stat" role="status" aria-live="polite" title="Experiments completed"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="bgc" cx="16" cy="16" r="13"/><circle class="fgc" id="statRing" cx="16" cy="16" r="13" stroke-dasharray="81.7" stroke-dashoffset="81.7"/></svg><span><b id="statN">0</b> / 20</span></div>
+  <div class="stat" id="stat" role="status" aria-live="polite" title="Experiments completed"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="bgc" cx="16" cy="16" r="13"/><circle class="fgc" id="statRing" cx="16" cy="16" r="13" stroke-dasharray="81.7" stroke-dashoffset="81.7"/></svg><span><b id="statN">0</b> / <span id="statT">36</span></span></div>
   <button class="tb" data-action="toggle-theme" id="themeBtn" aria-label="Toggle theme">Light</button>
   <button class="tb" data-action="open-help" aria-label="Keyboard shortcuts">Keys</button>
 </div></div>
@@ -41,11 +41,26 @@
   <a href="#q4a">Ambiguity in language<span class="tick">✓</span></a>
   <a href="#q4b">Neural networks<span class="tick">✓</span></a>
   <a href="#q4c">Entropy &amp; decision trees<span class="tick">✓</span></a>
-  <div class="grp">Chapter 5 · AI at work</div>
-  <a href="#claude">Claude Certified Associate<span class="tick">✓</span></a>
+  <div class="grp">Chapter 5 · How language models work</div>
+  <a href="#llm1">Predicting the next word<span class="tick">✓</span></a>
+  <a href="#llm2">Context<span class="tick">✓</span></a>
+  <a href="#llm3">Errors and remedies<span class="tick">✓</span></a>
+  <div class="grp">Chapter 6 · Working with Claude</div>
+  <a href="#claude">Seven skills, one case<span class="tick">✓</span></a>
+  <a href="#c5d1">1 · Prompting<span class="tick">✓</span></a>
+  <a href="#c5d2">2 · Evaluating output<span class="tick">✓</span></a>
+  <a href="#c5d3">3 · Choosing tool &amp; model<span class="tick">✓</span></a>
+  <a href="#c5d4">4 · Designing workflows<span class="tick">✓</span></a>
+  <a href="#c5d5">5 · Projects &amp; knowledge<span class="tick">✓</span></a>
+  <a href="#c5d6">6 · Governance &amp; risk<span class="tick">✓</span></a>
+  <a href="#c5d7">7 · Troubleshooting<span class="tick">✓</span></a>
+  <a href="#c5d8">8 · From pilot to practice<span class="tick">✓</span></a>
+  <a href="#c5d9">9 · A second case: finance<span class="tick">✓</span></a>
   <div class="grp">Appendix</div>
   <a href="#formulas">Formulae<span class="tick">✓</span></a>
-  <a href="#quiz">End-of-course test<span class="tick">✓</span></a>
+  <a href="#quiz">Self-assessment<span class="tick">✓</span></a>
+  <a href="#tasks">Practical tasks<span class="tick">✓</span></a>
+  <a href="#sources">Further reading<span class="tick">✓</span></a>
 </nav>
 
 <main id="main">
@@ -53,9 +68,8 @@
 <div class="hero" id="intro">
   <div class="crest">Introduction to Artificial Intelligence</div>
   <h1>Understand the machine.<br>Then put it to work.</h1>
-  <p class="lede">This is an online note for people who left formal study some years ago and now find artificial intelligence arriving in their working lives. It asks nothing of you beyond curiosity and a willingness to try things. The mathematics never goes past fractions and logarithms, and whenever a number appears there is a machine on the page that lets you change it and watch what happens.</p>
-  <p class="lede" style="font-size:1rem">Read it in order if you can; each chapter leans on the one before. The first four chapters build the ideas — agents, search, uncertainty, language and learning. The fifth turns to the practical question of using an AI assistant well at work, and to the syllabus of Anthropic's <i>Claude Certified Associate – Foundations</i>.</p>
-  <div class="meta"><span>5 chapters</span><span>20 interactive experiments</span><span>Self-contained · works offline</span><span>Review questions with suggested answers</span></div>
+  <p class="lede">This online course is a hands-on introduction to artificial intelligence for working professionals. Every topic is a short session built the same way: predict, try, apply.</p>
+  <div class="meta"><span>6 chapters · 25 short sections · one page</span><span>36 experiments</span><span>Your notes become an action plan</span><span>Works offline</span></div>
 </div>
 
 <div class="prof"><div class="av">Pr</div><div><div class="who">Preface</div>
@@ -92,7 +106,7 @@ I have taught this material to engineers, managers and the occasional sceptical 
   <p>Two further objections are worth having ready. The test lives entirely in text, so it says nothing about perception or physical skill: a system could pass and still be unable to find its way across a room. And the verdict depends on who is judging and what they thought to ask; a credulous judge with dull questions makes the test trivial.</p>
   <p>The second objection led to a stronger proposal, the <b>Total Turing Test</b>, in which the machine must also see (through cameras), recognise what is around it, and act on objects (with a robot arm). A chatbot that explains how to replace a failed cooling fan is one thing; a system that must locate the fan, avoid the hazards beside it and carry out the replacement is quite another. The total test asks for both.</p>
 
-  <div class="box key"><span class="tag">Key idea</span>Fluency is evidence of fluency. It is not evidence of understanding, and it is not evidence of correctness. Keep this in your pocket; it returns in Chapter 5 as the single most important habit for anyone using an AI assistant at work.</div>
+  <div class="box key"><span class="tag">Key idea</span>Fluency is evidence of fluency. It is not evidence of understanding, and it is not evidence of correctness. Keep this in your pocket; it returns in Chapter 6, §2, as the single most important habit for anyone using an AI assistant at work.</div>
 </section>
 
 <section class="lec" id="q1b">
@@ -583,23 +597,127 @@ I have taught this material to engineers, managers and the occasional sceptical 
   </div>
 </section>
 
-<!-- ============ Chapter 5 ============ -->
+<!-- ============ Chapter 5: language models ============ -->
+<section class="lec" id="llm1">
+  <div class="qhead"><span class="chapno">Chapter 5 · §1</span><h2>A machine that predicts the next word</h2></div>
+  <p class="lede-ch">The assistants people now use at work are large language models. They are built from the ideas in Chapter 4, scaled up enormously, and trained to do one thing: predict what comes next.</p>
+  <div class="think"><span class="tag">Pause and think</span>Finish this sentence: "The technician restarted the …". How many reasonable endings can you think of? What made some more likely than others?</div>
+  <p>You thought of several endings and ranked them without effort: <i>server</i> before <i>meeting</i>, and certainly before <i>banana</i>. A language model does the same thing with numbers. Text is first cut into <b>tokens</b> — short pieces, often a word or part of a word. Given the tokens so far, the model computes a probability for every possible next token, picks one, appends it, and repeats. A whole answer is produced one token at a time in this way.</p>
+  <p>The probabilities come from <b>training</b>. A neural network with billions of weights is shown vast amounts of text and adjusted, by the gradient methods behind Chapter 4's single neuron, until its predictions of the next token are good. Nobody writes rules into it. Grammar, facts, styles of argument and a great deal else are absorbed because they help with prediction. Its quality is then judged on text it has not seen — <b>held-out data</b> — because performance on the training text itself proves only memory. And it inherits the slant of what it read: if the training text describes some groups or views more often or more kindly than others, so will the model.</p>
+  <p>Picking the next token involves a setting called <b>temperature</b>, a direct descendant of the temperature in Chapter 2. At a low temperature the model nearly always takes the most likely token: predictable and repetitive. At a high one it samples more freely among the alternatives: varied, sometimes inventive, sometimes wrong. This is why the same question can produce different answers on different occasions.</p>
+  <div class="lab" data-lab="temp"><div class="lt"><span class="pill">Experiment 18</span><b>Temperature and the next word</b><span class="mark">✓ completed</span></div>
+    <p class="muted">The prompt is "The technician restarted the …". The bars show the probability of each candidate. Move the temperature, then sample.</p>
+    <div class="row">
+      <div class="col"><div class="ctl"><label>Temperature <output id="tmTo">1.0</output></label><input type="range" id="tmT" min="0.1" max="2" step="0.1" value="1" aria-label="Temperature"></div>
+        <button class="b sm" id="tmGo">Sample 20 words</button>
+        <p id="tmOut" style="margin-top:.8rem;line-height:1.9"></p></div>
+      <div class="col"><div id="tmBars"></div></div>
+    </div>
+  </div>
+  <div class="box key"><span class="tag">Key idea</span>A language model predicts the next token from the tokens so far, using probabilities learned from text. It produces what is likely, which is usually, but not always, what is true.</div>
+</section>
+
+<section class="lec" id="llm2">
+  <div class="qhead"><span class="chapno">Chapter 5 · §2</span><h2>What the model can see: context</h2></div>
+  <p class="lede-ch">A model answers from two things only: what it absorbed in training, and what is in front of it now. The second is called the context, and managing it is most of the practical skill.</p>
+  <div class="think"><span class="tag">Pause and think</span>You explain a project to an assistant on Monday. On Tuesday, in a new conversation, it knows nothing about it. Has it forgotten?</div>
+  <p>It never knew, in the sense you mean. The model's weights do not change when you talk to it. Everything it "knows" about your conversation is the text currently in its <b>context window</b>: your instructions, any documents you supplied, and the exchange so far. A new conversation starts with an empty window. Products add continuity by putting things back into the window for you — a Project's instructions and files, a stored memory — but the principle is unchanged: if it is not in the window and was not in the training text, the model cannot use it.</p>
+  <p>The window is large but finite, and measured in tokens. In English a token is roughly four characters, so a page of text is several hundred tokens. Within the window a mechanism called <b>attention</b> lets the model weigh every token against every other, which is how it connects a question at the end to a clause on page three. Attention is not perfect: in a very full window, material in the middle is used less reliably, and instructions given long ago compete with everything since.</p>
+  <div class="lab" data-lab="ctxwin"><div class="lt"><span class="pill">Experiment 19</span><b>Fill a context window</b><span class="mark">✓ completed</span></div>
+    <p class="muted">An example window of 200,000 tokens. Type, or add documents, and watch it fill. Token counts are estimates at four characters a token.</p>
+    <div class="row">
+      <div class="col"><textarea id="cwText" rows="4" style="width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:.7rem .9rem;font-family:var(--sans);font-size:1rem" aria-label="Your message">Summarise the attached policy for a new agent in five bullet points.</textarea>
+        <div style="margin-top:.6rem"><button class="chip" data-cw="27000">+ a 40-page policy</button><button class="chip" data-cw="80000">+ a 120-page contract</button><button class="chip" data-cw="600000">+ a year of ticket history</button><button class="chip" data-cw="0">Clear documents</button></div></div>
+      <div class="col"><dl class="kv"><dt>Your message</dt><dd id="cwMsg"></dd><dt>Documents</dt><dd id="cwDocs"></dd><dt>Window used</dt><dd id="cwPct"></dd></dl>
+        <div class="bar" style="height:10px"><i id="cwBar" style="width:0"></i></div><p class="muted" id="cwNote" style="margin-top:.6rem"></p></div>
+    </div>
+  </div>
+  <div class="box key"><span class="tag">Key idea</span>The model sees only its training and its context window. It does not remember earlier conversations unless something puts them back in the window, and a window that is too full is used less well.</div>
+</section>
+
+<section class="lec" id="llm3">
+  <div class="qhead"><span class="chapno">Chapter 5 · §3</span><h2>Why it gets things wrong, and what helps</h2></div>
+  <p class="lede-ch">A model that produces the likeliest continuation will, when it lacks the facts, produce a likely-sounding one. That single property explains most of its failures and points to the remedies.</p>
+  <div class="think"><span class="tag">Pause and think</span>You ask an assistant for your own company's returns period. It has never seen your policy. What do you expect it to say?</div>
+  <p>Not "I do not know", as often as you would hope. A confident, fluent, plausible answer is the likeliest continuation of your question, so that is what tends to appear: thirty days, perhaps, because that is common. This is a <b>hallucination</b> — not a malfunction but the ordinary mechanism working without the facts. Three limits produce most of them. The model's knowledge stops at its <b>training cut-off</b>, so recent events are missing. It never saw <b>private information</b>: your policies, customers and figures. And it is poor at <b>exact work</b> such as long arithmetic, because it predicts digits instead of calculating them.</p>
+  <p>Each limit has a remedy, and they are the same remedies Chapter 6 teaches as habits. <b>Grounding</b>: put the source in the context and ask the model to answer from it; it is far more reliable reading than recalling. <b>Retrieval</b>: let the product find the relevant passages from a larger store and place them in the window for you. <b>Tools</b>: let the model call a search engine for what is recent and a calculator or code for what must be exact. None of these makes checking unnecessary. A grounded answer is only as good as the document it was grounded in, as the last button in the experiment shows.</p>
+  <div class="lab" data-lab="ground"><div class="lt"><span class="pill">Experiment 20</span><b>The same question, three ways</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Question: "How long do our customers have to return an item?" Calder's current policy says 14 days. This is a scripted illustration, not a live model.</p>
+    <div><button class="chip" data-g="0">No document supplied</button><button class="chip" data-g="1">Current policy supplied</button><button class="chip" data-g="2">Last year's policy supplied</button></div>
+    <div id="gOut" class="box" style="margin-top:.8rem;min-height:110px"></div>
+  </div>
+  <div class="lab" data-lab="knows"><div class="lt"><span class="pill">Experiment 21</span><b>Will it know?</b><span class="mark">✓ completed</span></div>
+    <div id="knowsBox"></div>
+  </div>
+  <div class="box key"><span class="tag">Key idea</span>Without the facts a model produces something plausible. Supply the source, retrieve it, or give the model a tool — and still check, because a grounded answer inherits the faults of its source.</div>
+  <div class="summary"><h3>Chapter 5 in brief</h3><ul>
+    <li>A language model predicts the next token from probabilities learned in training; temperature controls how freely it samples.</li>
+    <li>It is evaluated on held-out data and inherits the biases of its training text.</li>
+    <li>It sees only its training and its context window; continuity across chats has to be supplied.</li>
+    <li>Hallucination is plausible continuation without facts. Grounding, retrieval and tools reduce it; checking remains necessary.</li>
+  </ul></div>
+  <div class="review"><h3>Questions for review</h3>
+    <details><summary>What does a language model actually compute at each step?</summary><div class="ans">A probability for every possible next token given the tokens so far. One is chosen, appended, and the process repeats.</div></details>
+    <details><summary>Why does the same prompt sometimes give different answers?</summary><div class="ans">The next token is sampled from a probability distribution. At temperatures above the minimum, less likely tokens are sometimes chosen, and one different token changes everything after it.</div></details>
+    <details><summary>An assistant "forgets" yesterday's conversation. Explain.</summary><div class="ans">Its weights did not change. Yesterday's text is not in today's context window unless a Project, a memory feature or the user puts it there.</div></details>
+    <details><summary>Give three causes of hallucination and a remedy for each.</summary><div class="ans">Events after the training cut-off: search. Private information never seen: supply or retrieve the document. Exact calculation: a calculator or code tool. In every case, verify the result.</div></details>
+  </div>
+</section>
+
+<!-- ============ Chapter 6 ============ -->
 <section class="lec" id="claude">
-  <div class="qhead"><span class="chapno">Chapter 5</span><h2>Using an AI assistant well: the Claude Certified Associate syllabus</h2></div>
-  <p class="lede-ch">The first four chapters were about how intelligent systems work. This one is about working <i>with</i> one — the habits that separate people who get reliable value from an assistant from people who get fluent nonsense. It happens that Anthropic has written those habits down as the syllabus of a credential, and the syllabus makes a good spine for the chapter.</p>
+  <div class="qhead"><span class="chapno">Chapter 6 · Overview</span><h2>Working with Claude: seven skills and one case</h2></div>
+  <p class="lede-ch">Chapters 1 to 4 were about how intelligent systems work, and Chapter 5 about language models in particular. This one is about working <i>with</i> one: what to ask, what to trust, which tool to pick, where a person must decide, what must never be shared, and how to put right what goes wrong.</p>
 
-  <p>The <b>Claude Certified Associate – Foundations</b> (exam code CCAO-F) is Anthropic's non-technical certification: sixty questions in two hours, scored out of 1,000 with 720 to pass, valid for a year, no programming assumed. Its seven domains are weighted, and the weighting tells you what the authors think matters most. Syllabus details change; treat Anthropic's current exam guide as the authority.</p>
+  <p>People who get dependable value from an assistant are not cleverer at typing. They have seven habits, and the habits can be learned. The list used here follows the one Anthropic drew up for its <i>Claude Certified Associate – Foundations</i> credential, which is written for people who use Claude in their work — in operations, marketing, project management, teaching, communications — and assumes no programming at all. We shall use it as a map of the skills, not as a syllabus to be memorised. If you do intend to sit that examination, Anthropic's current guide is the authority on its format and scope.</p>
 
-  <div class="lab" data-lab="dom"><div class="lt"><span class="pill">Experiment 18</span><b>The seven domains and their weights</b><span class="mark">✓ completed</span></div>
+  <div class="think"><span class="tag">Pause and think</span>Before you look at the seven: if you had to guess which skill matters most to someone using an AI assistant at work, which would you name? Most people say "writing good prompts". Hold that thought.</div>
+
+  <div class="lab" data-lab="dom"><div class="lt"><span class="pill">Experiment 22</span><b>Seven skills, and how much each one matters</b><span class="mark">✓ completed</span></div>
     <div class="dom" id="domGrid" role="tablist"></div>
     <div id="domDetail" class="box key" style="margin-top:.6rem"></div>
   </div>
 
-  <h3>Asking well</h3>
-  <p>An assistant can only work from what it is given. A good request states the task, says who the result is for and what it is for, sets the constraints — length, tone, format — and, where it helps, shows an example of what good looks like. Large jobs go better broken into steps, and a first answer is a draft to be refined rather than a verdict to be accepted. Above all, supply the source material: an assistant working from a document you have pasted is on far firmer ground than one working from recollection.</p>
+  <p>The bars show the emphasis Anthropic gives each skill. Judging an answer outweighs asking for one, by 21 to 14. Add designing the work around the assistant (16) and using it responsibly (15), and more than half of what matters is decided by a person, away from the keyboard. That is a fair picture of the job, and it is why this chapter spends less time on clever wording than you might expect.</p>
 
-  <div class="lab" data-lab="prompt"><div class="lt"><span class="pill">Experiment 19</span><b>From a weak request to a strong one</b><span class="mark">✓ completed</span></div>
-    <p class="muted">Switch on the elements a good request contains and watch it assemble.</p>
+  <div class="box key"><span class="tag">Key idea</span>Using an assistant well is mostly judgement: what to ask, what to trust, which tool to use, where a person decides, what stays out, and how to fix what went wrong. None of it requires code.</div>
+
+  <h3>One case, followed through the chapter</h3>
+  <p>A list of good habits is easy to agree with and hard to apply. So this chapter follows a single invented organisation from start to finish. <b>Calder Home</b> is an online homeware retailer whose customer-service department is under pressure, and whose head of service has been asked whether Claude can help. Each section returns to Calder with the question that section equips you to answer. The company and its figures are made up for teaching; the arithmetic is real, and you should check it.</p>
+  <table class="t">
+    <tr><th style="width:44%">Calder Home customer service — the baseline</th><th>Figure</th></tr>
+    <tr><td>Agents</td><td>40, in three queues: returns, delivery, billing</td></tr>
+    <tr><td>Tickets</td><td>12,000 a month</td></tr>
+    <tr><td>Handling time per ticket</td><td>20 minutes: 8 reading and looking up, 7 drafting, 5 deciding</td></tr>
+    <tr><td>Loaded cost of an agent</td><td>£24 an hour</td></tr>
+    <tr><td>First-response time</td><td>9 hours, against a target of 4</td></tr>
+    <tr><td>Replies containing a factual or policy error</td><td>4%, each costing about £35 in credit and rework</td></tr>
+    <tr><td>Tickets reopened</td><td>12%</td></tr>
+    <tr><td>Customer satisfaction</td><td>78%</td></tr>
+  </table>
+  <p>Before any tool is discussed, notice what the table already tells a manager. Agents spend 12,000 × 20 minutes = 4,000 hours a month on tickets, costing £96,000. Errors cost 12,000 × 4% × £35 = £16,800 a month. Those two numbers are the size of the prize and the size of the risk, and every later decision should be weighed against them.</p>
+</section>
+
+<!-- ---------- Domain 1 ---------- -->
+<section class="lec" id="c5d1">
+  <div class="qhead"><span class="chapno">Chapter 6 · §1</span><h2>Prompting and task execution</h2></div>
+  <p class="lede-ch">A prompt is a brief. Everything you would tell a capable new colleague before handing over a piece of work belongs in it, and almost every disappointing answer can be traced to something the brief left out.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>You ask a new member of staff to "write something about our new product". What will they have to guess? Count the guesses. Each one is a place where the result can differ from what you wanted.</div>
+
+  <p>They must guess the length, the reader, the purpose, the tone, the facts, the format, and what you would regard as good. An assistant makes the same guesses, silently and plausibly. A complete brief has five parts, and it is worth learning them as a list.</p>
+
+  <table class="t">
+    <tr><th style="width:22%">Component</th><th>The question it answers</th><th>Example</th></tr>
+    <tr><td><b>Objective</b></td><td>What is to be produced?</td><td>A 150-word announcement of the new monitoring dashboard</td></tr>
+    <tr><td><b>Context</b></td><td>For whom, for what purpose, from what material?</td><td>Operations managers who already use the platform; the monthly newsletter; the facts supplied below</td></tr>
+    <tr><td><b>Constraints</b></td><td>What must it do, and not do?</td><td>Plain British English; no superlatives; invent no features</td></tr>
+    <tr><td><b>Output shape</b></td><td>What form should the answer take?</td><td>One short paragraph, then three bullet points</td></tr>
+    <tr><td><b>Quality criteria</b></td><td>How shall we both know it is good?</td><td>Every claim traceable to the supplied facts; readable in under a minute</td></tr>
+  </table>
+
+  <div class="lab" data-lab="prompt"><div class="lt"><span class="pill">Experiment 23</span><b>From a weak request to a complete brief</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Switch the components on one at a time and read the request as it grows.</p>
     <div class="row">
       <div class="col">
         <div class="exam" style="display:block;margin-top:0"><b>Weak request</b><br><span class="en">"Write something about our new product."</span></div>
@@ -607,44 +725,399 @@ I have taught this material to engineers, managers and the occasional sceptical 
       </div>
       <div class="col">
         <div class="muted">Assembled request</div>
-        <div style="border:1px solid var(--line-2);border-radius:3px;padding:.8rem 1rem;font-size:1.02rem;line-height:1.6;min-height:180px;background:var(--card)" id="promptOut"></div>
-        <div style="margin-top:.5rem"><span class="muted">Completeness</span><div class="bar"><i id="promptBar" style="width:0"></i></div></div>
+        <div style="border:1px solid var(--line-2);border-radius:12px;padding:.9rem 1.1rem;font-size:1.02rem;line-height:1.6;min-height:200px;background:var(--bg)" id="promptOut"></div>
+        <div style="margin-top:.6rem"><span class="muted">Completeness</span><div class="bar"><i id="promptBar" style="width:0"></i></div></div>
       </div>
     </div>
   </div>
 
-  <h3>Checking the answer — the heaviest domain</h3>
-  <p>Chapter 1 ended with the warning that fluency is not correctness; Chapter 3 showed that a confident positive from a detector is, when the thing detected is rare, usually wrong. Put the two together and you have the single most examined competence in this syllabus: <b>evaluating output</b>. Check facts against a source you trust. Ask for the reasoning or the citation and follow it. Re-run the arithmetic yourself. Ask not "is this plausible?" but "is this fit for the purpose I have?" And remember that whatever you send, publish or decide on the strength of an assistant's answer is yours; the assistant is not accountable, you are.</p>
+  <h3>Large jobs: decompose, then iterate</h3>
+  <p>A request for "a market report" asks for research, analysis, structure and prose all at once, and gives you one opportunity to notice a mistake — at the end, when it is expensive. Break it up. Ask first for the outline and agree it. Then the evidence for each section. Then the draft. Then the tightening. Each step is small enough to check, and an error caught at the outline costs a sentence to fix.</p>
+  <p>The same attitude governs a single answer. A first response is a draft. Say what is right about it, what is wrong, and what to change; do not start again from nothing, and do not accept it because it reads well.</p>
 
-  <h3>Choosing the tool</h3>
-  <p>Models come in tiers that trade capability against speed and cost — a small, fast tier for routine high-volume work, a middle tier for most drafting and analysis, the largest for the hardest reasoning — and paying for capability you do not need is simply waste. Features likewise have purposes. A plain chat answers a quick question. A <b>Project</b> holds standing instructions and reference files for work that recurs. A research mode produces a sourced report. An artifact is a document or tool you will keep and edit. The skill is matching the tool to the job, and noticing when a job is not yours at all: anything that needs the API, automation, or integration with other systems belongs with a developer or architect, and recognising that moment is itself on the syllabus.</p>
+  <h3>Four kinds of work, four ways of asking</h3>
+  <table class="t">
+    <tr><th style="width:20%">Task</th><th>What to supply</th><th>What to ask for</th></tr>
+    <tr><td>Analysis</td><td>The data or document itself</td><td>The reasoning shown, assumptions stated, uncertainty flagged</td></tr>
+    <tr><td>Research</td><td>The question, the scope, the sources you trust</td><td>Sources cited for each finding, and gaps named</td></tr>
+    <tr><td>Drafting</td><td>Audience, purpose, tone, an example of your house style</td><td>A draft in the stated shape, ready to edit</td></tr>
+    <tr><td>Brainstorming</td><td>The problem and what has already been tried</td><td>Many varied options first; judgement afterwards</td></tr>
+  </table>
 
-  <div class="lab" data-lab="pick"><div class="lt"><span class="pill">Experiment 20</span><b>Six situations, six choices</b><span class="mark">✓ completed</span></div>
+  <h3>When a requirement is missed, ask why</h3>
+  <p>Suppose the answer ignores something you wanted. Before rewriting the prompt, diagnose it. The requirement was either <b>absent</b> (you never said it), <b>ambiguous</b> (you said it in a way that could be read two ways — Chapter 4), <b>buried</b> (you said it once, in the middle of a long paragraph), or <b>contradicted</b> (you said something else that conflicts with it). The remedy differs in each case: add it, sharpen it, move it to where it cannot be missed, or resolve the conflict.</p>
+
+  <div class="lab" data-lab="missed"><div class="lt"><span class="pill">Experiment 24</span><b>Why was the requirement missed?</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Four prompts, four disappointing answers. Diagnose each.</p>
+    <div id="missedBox"></div>
+  </div>
+
+  <div class="box case"><span class="tag">The Calder case</span>In a two-week trial, Calder's agents first used the assistant however they liked. Most typed "reply to this customer" and pasted the ticket. Team leads found that 38% of the drafts needed substantial rework: wrong tone, no reference to policy, a remedy the agent had not chosen. The team then adopted a shared template with the five components — the objective (a reply to this ticket), the context (the order record and the relevant policy clause), the constraints (no date promises, no remedy beyond the one stated), the shape (three short paragraphs) and the criteria (every statement traceable to the order or the policy). Rework fell to 11%. <b>The lesson for a manager:</b> prompt quality is not a personal talent to be hoped for; it is a standard to be written down, taught and built into the tool.</div>
+
+  <div class="box key"><span class="tag">Key idea</span>Objective, context, constraints, output shape, quality criteria. Decompose what is large; iterate on what comes back; and when something is missed, find out whether it was absent, ambiguous, buried or contradicted before you change anything.</div>
+</section>
+
+<!-- ---------- Domain 2 ---------- -->
+<section class="lec" id="c5d2">
+  <div class="qhead"><span class="chapno">Chapter 6 · §2</span><h2>Output evaluation and validation</h2></div>
+  <p class="lede-ch">Of the seven skills this one matters most. An assistant's answer arrives well written, well organised and confident whether or not it is right. The whole of this section is about refusing to be persuaded by that.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>You ask an assistant, "Are you sure that figure is correct?" and it replies, "Yes, I am confident." What have you learned?</div>
+
+  <p>Nothing you can rely on. The reply is produced by the same process that produced the figure; it is not a second opinion. This is Chapter 1's lesson in its sharpest form — <b>a model's report of its own confidence is not independent verification</b> — and it is the single point most worth remembering from this chapter. Verification means comparison with something outside the conversation: the source document, a system of record, a calculation you run yourself, a person who knows.</p>
+
+  <h3>Five questions to put to any answer</h3>
+  <table class="t">
+    <tr><th style="width:20%">Check</th><th>Ask</th><th>How it typically fails</th></tr>
+    <tr><td><b>Accuracy</b></td><td>Is each claim true, and can I show it?</td><td>A plausible figure, date, name or citation that does not exist — a <i>hallucination</i></td></tr>
+    <tr><td><b>Completeness</b></td><td>Was everything I asked for covered?</td><td>Three of five questions answered; the awkward case left out</td></tr>
+    <tr><td><b>Consistency</b></td><td>Does it agree with itself and with what I supplied?</td><td>A total that does not match its parts; a summary that contradicts the body</td></tr>
+    <tr><td><b>Relevance</b></td><td>Does it address the job, or only the topic?</td><td>A sound general essay where a specific decision was needed</td></tr>
+    <tr><td><b>Audience fit</b></td><td>Could the intended reader use it as it stands?</td><td>Jargon for a customer; over-explanation for an expert</td></tr>
+  </table>
+
+  <h3>The claim–evidence table</h3>
+  <p>The practical instrument for accuracy is dull and effective. List each factual claim in the draft. Beside it, write where in the source it is supported. Three outcomes are possible: the source <b>supports</b> it; the source is <b>silent</b>, in which case the claim is unsupported, however reasonable it sounds; or the source <b>contradicts</b> it. Only the first kind may stay without further work. Most people, on first trying this, are surprised by how many claims fall into the second group.</p>
+
+  <div class="lab" data-lab="claims"><div class="lt"><span class="pill">Experiment 25</span><b>Check a draft against its source</b><span class="mark">✓ completed</span></div>
+    <div class="exam" style="display:block;margin-top:0"><b>Source: maintenance note, 14 March</b><br><span class="en">Cooling unit C-2 was serviced on 12 March. Two of its six fans were replaced. Inlet temperature fell from 31 °C to 27 °C after the work. The next service is due in 90 days. Unit C-3 was not inspected.</span></div>
+    <p class="muted">An assistant produced the summary sentences below. For each, say what the source does for it.</p>
+    <div id="claimsBox"></div>
+  </div>
+
+  <h3>Bias, and when to call a person</h3>
+  <p>An answer can be accurate in every sentence and still slanted: one option described warmly and the others briefly, a group characterised by a stereotype, a conclusion that suits whoever asked. Look for what was left out and whether alternatives were treated evenly. And know the limits of your own checking. Where the content is legal, medical, financial, safety-critical or contractual, or where a mistake would be costly and hard to undo, the right validation is review by someone qualified, not a more careful reading by you.</p>
+
+  <h3>Choosing the form of the output</h3>
+  <p>Evaluation includes deciding what shape the answer should take once it is right. A short answer to be read once belongs <b>inline</b> in the chat. Information to be sorted, compared or passed to another tool belongs as <b>structured data</b> — a table, a list with fixed fields. A substantial piece that will be edited, reused or shared — a report, a plan, a document — belongs in an <b>Artifact</b>, where it sits apart from the conversation and can be revised without retyping.</p>
+
+  <div class="box worked"><span class="tag">Worked example</span>A colleague sends you an assistant-drafted client update: fluent, three paragraphs, four figures. You run the five checks. Accuracy: two figures match the monthly report, one is not in it, one is last quarter's. Completeness: the client's question about delivery dates is not answered. Consistency: the percentage in paragraph one does not follow from the numbers in paragraph two. Relevance and audience fit are fine. Verdict: not ready. It read perfectly well, which is exactly why the checks are needed.</div>
+
+  <h3>How much checking is enough?</h3>
+  <p>Checking costs time, and time was the thing you were trying to save. A manager therefore has to decide how much review a workflow gets, and the honest answer depends on what an error costs. Review everything and the saving shrinks; review nothing and the errors go out under your name. Between the two lie sampling and risk-based review, in which the routine case is spot-checked and the consequential case is always read. There is no universally right setting, which is why the next experiment has no right answer.</p>
+
+  <div class="lab" data-lab="dil2"><div class="lt"><span class="pill">Experiment 26</span><b>A decision without a right answer: how much review?</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Choose as Calder's head of service would. Then read what each choice would have cost and bought.</p>
+    <div id="dil2Box"></div>
+  </div>
+
+  <div class="box case"><span class="tag">The Calder case</span>Calder's errors cost £16,800 a month before any assistant is involved. Suppose assisted drafting, with every reply read by the agent, brings the error rate from 4% to 3%: that is 12,000 × 1% × £35 = £4,200 a month saved. Suppose instead that agents, trusting fluent drafts, stop reading them properly and the rate rises to 6%: that is £8,400 a month lost, and it would wipe out much of the time saving. <b>The lesson:</b> the evaluation habit is not a courtesy. It is the variable on which the business case turns.</div>
+
+  <div class="box key"><span class="tag">Key idea</span>Check accuracy, completeness, consistency, relevance and audience fit. Verify against something outside the conversation; the assistant's own assurance does not count. Unsupported is not the same as false, but neither may be sent as fact. You, not the assistant, are accountable for what goes out.</div>
+</section>
+
+<!-- ---------- Domain 3 ---------- -->
+<section class="lec" id="c5d3">
+  <div class="qhead"><span class="chapno">Chapter 6 · §3</span><h2>Product and model selection</h2></div>
+  <p class="lede-ch">Claude is not one thing. It is several ways of working and several models, and a good deal of wasted effort comes from using the wrong one — a research question asked in a quick chat, or the most powerful model set to sorting email.</p>
+
+  <h3>Four ways of working</h3>
+  <table class="t">
+    <tr><th style="width:18%">Feature</th><th>What it is for</th><th>Reach for it when</th></tr>
+    <tr><td><b>Chat</b></td><td>A single conversation: a question, a draft, an analysis of something you paste in</td><td>The task is self-contained and you will not need its context again</td></tr>
+    <tr><td><b>Projects</b></td><td>A workspace holding standing instructions, reference files and related chats</td><td>The work recurs, shares the same background, or involves the same documents each time</td></tr>
+    <tr><td><b>Research mode</b></td><td>Gathering from many sources, reviewing them, and reporting with citations</td><td>You need findings you can trace, not an answer from recollection</td></tr>
+    <tr><td><b>Artifacts</b></td><td>A substantial output held in its own panel, to edit and reuse</td><td>The result is a document, a table or a tool you will keep</td></tr>
+  </table>
+
+  <h3>Three model families</h3>
+  <p>The families are named Haiku, Sonnet and Opus, and they trade the same three things against one another: capability, speed and cost. <b>Haiku</b> is the smallest and quickest, suited to high-volume, well-defined work — classifying, extracting, short replies. <b>Sonnet</b> is the middle of the range and the sensible default for most drafting and analysis. <b>Opus</b> is the most capable, for long, subtle or many-step reasoning where a better answer justifies waiting and paying more. There is no best model in general; there is only the smallest one that meets the quality the task requires. Choose by what the task demands, not by a league table.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Chapter 2 distinguished a reflex agent from a goal-based one by asking how much deliberation the task needs. Apply the same question here: does sorting a hundred routine emails call for the same model as reviewing a forty-page contract?</div>
+
+  <div class="lab" data-lab="pick"><div class="lt"><span class="pill">Experiment 27</span><b>Which feature, which model?</b><span class="mark">✓ completed</span></div>
     <div id="pickBox"></div>
   </div>
 
-  <h3>Keeping the assistant informed, and keeping the organisation safe</h3>
-  <p>A Project's instructions set the standing rules — audience, tone, house style — and its knowledge files supply the references. Both go stale. An outdated policy document produces confidently outdated answers, so prune as well as add, and keep the whole small enough to sit comfortably within the assistant's context. On the other side of the ledger: do not paste confidential, personal or regulated data without authorisation; follow your organisation's policy and the provider's terms; say when AI has helped where that matters; watch for bias and for copyrighted material; and keep a person in the loop for any consequential decision. Convenience never outranks confidentiality.</p>
+  <h3>Context and memory</h3>
+  <p>A conversation is held in a <b>context window</b> of finite size. Everything in it — your instructions, pasted documents, earlier turns — competes for the model's attention, and in a very long conversation early material carries less weight and old instructions get lost. One chat does not automatically know what was said in another; continuity across chats comes from a Project's knowledge and instructions, or from memory where that is switched on. So at any moment you have four choices.</p>
+  <table class="t">
+    <tr><th style="width:18%">Choice</th><th>Do this when</th></tr>
+    <tr><td><b>Continue</b></td><td>The thread is short, on one subject, and the earlier turns still matter</td></tr>
+    <tr><td><b>Summarise</b></td><td>The thread is long but valuable: ask for a summary of decisions and open points, and carry that forward</td></tr>
+    <tr><td><b>Restart</b></td><td>The subject has changed, or the conversation has gone wrong and is dragging its errors along</td></tr>
+    <tr><td><b>Preserve</b></td><td>The background will be needed again and again: put it in a Project rather than retyping it</td></tr>
+  </table>
 
-  <h3>When it goes wrong</h3>
-  <p>Vague output usually means a vague request — add specifics and an example. An inconsistent format means you did not state the format — state it, and show one. Wrong facts mean the assistant was recalling rather than reading — supply the source, ask for citations, verify. A conversation that has lost the thread is best restarted with a short summary, or moved into a Project. Something slow or expensive may simply want a smaller tier. Almost every failure has a cause on this short list, and almost every cause has a remedy that costs a minute.</p>
+  <div class="lab" data-lab="ctx"><div class="lt"><span class="pill">Experiment 28</span><b>Continue, summarise, restart or preserve?</b><span class="mark">✓ completed</span></div>
+    <div id="ctxBox"></div>
+  </div>
 
-  <div class="box key"><span class="tag">How the two halves of this book meet</span>
-  <table class="t"><tr><th>Earlier chapter</th><th>Where it returns here</th></tr>
-  <tr><td>Turing Test — imitation is not understanding</td><td>Evaluating output: never take fluency as evidence of correctness</td></tr>
-  <tr><td>PEAS — define success before you build</td><td>Designing a workflow: state the performance measure for an AI-assisted process</td></tr>
-  <tr><td>Bayes and base rates</td><td>A confident flag from a rare-event detector is mostly false alarms</td></tr>
-  <tr><td>Abstraction in the 8-puzzle</td><td>Asking well: give the details that matter and leave out the rest</td></tr>
-  <tr><td>Heuristics and annealing</td><td>Iterating: a first draft is a starting point, not a place to settle</td></tr>
-  <tr><td>Entropy and information gain</td><td>Troubleshooting: ask the question that most reduces uncertainty first</td></tr></table></div>
+  <div class="box case"><span class="tag">The Calder case</span>Calder has three different jobs and should not buy one answer for all of them. <b>Tagging</b> 12,000 tickets a month by category is high-volume and well-defined: the smallest family, Haiku, with a weekly spot check. <b>Drafting replies</b> needs sound judgement of tone and policy, thousands of times: Sonnet, inside a Project that holds the policies. <b>The monthly root-cause review</b> — why are delivery complaints rising? — is one long, subtle analysis read by directors: Opus, or research mode where outside sources matter, with the output as an Artifact for the board pack. Matching each job to the smallest adequate model is a cost decision as much as a technical one, and it is the manager's to make.</div>
 
-  <div class="summary"><h3>Chapter 5 in brief</h3><ul>
-    <li>Seven domains; output evaluation (21%) carries the most weight, then workflow design (16%), governance (15%) and prompting (14%).</li>
-    <li>Ask with task, audience, constraints, examples and sources; evaluate against trusted sources and fitness for purpose; the human stays accountable.</li>
-    <li>Match model tier and feature to the job; refer API and integration work to developers and architects.</li>
-    <li>Keep Project instructions and knowledge current; protect confidential data; fix weak output by fixing the request.</li>
-  </ul></div>
+  <div class="box key"><span class="tag">Key idea</span>Chat for the one-off, Projects for the recurring, research mode for the sourced, Artifacts for the kept. The smallest model that meets the quality bar. And manage context deliberately: continue, summarise, restart or preserve.</div>
 </section>
+
+<!-- ---------- Domain 4 ---------- -->
+<section class="lec" id="c5d4">
+  <div class="qhead"><span class="chapno">Chapter 6 · §4</span><h2>Workflow integration and solution design</h2></div>
+  <p class="lede-ch">Using an assistant for a task is easy. Putting one into a process that other people depend on is design, and this section is about doing that design properly.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Take a process you know well — answering a customer complaint, say. Which steps are slow because they are laborious, and which are slow because someone must exercise judgement? Would you speed up both in the same way?</div>
+
+  <p>You would not, and that distinction is the heart of the matter. Start, as Chapter 1 taught, with the performance measure: what does a good outcome look like, and how will you know? Then <b>map the process as it is</b>. For each step note the delays, the repetitive transformations (copying, reformatting, summarising), the decisions, the approvals, where sensitive data appears, and what happens if the step goes wrong.</p>
+  <p>Now sort the steps. Some are <b>accelerable</b>: drafting, summarising, classifying, extracting, reformatting. The assistant does these quickly and a person can check the result. Others are <b>judgement-dependent</b>: deciding on a refund, approving an exception, signing off a commitment. These stay with a named person, though the assistant may prepare the material. The aim is not to automate everything; a design that hands a consequential decision to the assistant is a bad design, however much time it saves.</p>
+
+  <h3>Four things every design must state</h3>
+  <table class="t">
+    <tr><th style="width:22%">Element</th><th>Meaning</th></tr>
+    <tr><td><b>Inputs</b></td><td>What the assistant is given at each step, and from where — and what it must not be given</td></tr>
+    <tr><td><b>Validation gates</b></td><td>The points at which a person checks the output before it goes further</td></tr>
+    <tr><td><b>Decision owner</b></td><td>The named role accountable for the final decision</td></tr>
+    <tr><td><b>Escalation path</b></td><td>What happens to the unusual, the uncertain and the high-risk case</td></tr>
+  </table>
+
+  <div class="lab" data-lab="flow"><div class="lt"><span class="pill">Experiment 29</span><b>Design a complaint-handling workflow</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Six steps in handling a customer complaint. For each, decide who does what.</p>
+    <div id="flowBox"></div>
+  </div>
+
+  <h3>Saying what it will and will not do</h3>
+  <p>Part of the design is explaining it to the people who must approve it and live with it. State the expected value in terms they measure — hours saved, turnaround time, consistency. State the limits just as plainly: it can be wrong, it knows only what it is given, it does not replace the reviewer. State the risks and the human involvement the workflow still needs. And know where your own role ends. A request to connect systems, run without a person present, or process things automatically at volume is a job for a developer or architect; recognising that and handing it over is good judgement, not a failure.</p>
+
+  <div class="box worked"><span class="tag">Worked example</span>A support team spends twenty minutes on each complaint. Mapping shows eight of those minutes go on reading the thread and looking up the order, seven on drafting, and five on deciding the remedy. The design: the assistant summarises the thread and drafts a reply from the agent's chosen remedy (accelerable); the agent decides the remedy and approves the text (judgement, validation gate); anything involving a legal threat, a safety issue or a refund above the agent's limit goes to the team lead (escalation). Expected saving, about ten minutes a ticket; decision ownership unchanged.</div>
+
+  <h3>Is it worth doing? The business case</h3>
+  <p>A design is not a decision. Someone must still be persuaded to fund it, and that takes four numbers: the <b>benefit</b>, the <b>running cost</b>, the <b>one-off cost</b>, and the time to <b>pay back</b>. Two traps catch nearly every first attempt. The first is assuming that everyone will use the tool; in practice <b>adoption</b> starts well below 100% and has to be earned. The second is counting every hour saved as money saved. An agent who finishes tickets faster has gained capacity, and capacity only becomes value if it is used — to clear the backlog, to answer sooner, to avoid hiring. The share that does is the <b>realisation rate</b>, and it is a management choice, not a property of the software.</p>
+
+  <div class="lab" data-lab="roi"><div class="lt"><span class="pill">Experiment 30</span><b>Build Calder's business case</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Fixed by the case: £24 an hour, 4% error rate today at £35 an error, 40 licences at an assumed £25 each a month, and a one-off £9,360 for training and set-up. Everything else is yours to change.</p>
+    <div class="row">
+      <div class="col">
+        <div class="ctl"><label>Tickets a month <output id="roTo">12,000</output></label><input type="range" id="roT" min="2000" max="30000" step="500" value="12000" aria-label="Tickets a month"></div>
+        <div class="ctl"><label>Minutes saved per assisted ticket <output id="roSo">10</output></label><input type="range" id="roS" min="0" max="15" step="0.5" value="10" aria-label="Minutes saved"></div>
+        <div class="ctl"><label>Minutes of review added per ticket <output id="roRo">2</output></label><input type="range" id="roR" min="0" max="8" step="0.5" value="2" aria-label="Review minutes"></div>
+        <div class="ctl"><label>Adoption: share of tickets handled with the assistant <output id="roAo">70%</output></label><input type="range" id="roA" min="0" max="100" step="5" value="70" aria-label="Adoption"></div>
+        <div class="ctl"><label>Realisation: share of saved time put to use <output id="roZo">50%</output></label><input type="range" id="roZ" min="0" max="100" step="5" value="50" aria-label="Realisation"></div>
+        <div class="ctl"><label>Error rate on assisted tickets <output id="roEo">3.0%</output></label><input type="range" id="roE" min="0" max="10" step="0.5" value="3" aria-label="Error rate after"></div>
+        <button class="b sm sec" id="roReset">Restore the case figures</button>
+      </div>
+      <div class="col">
+        <div class="roi" id="roOut"></div>
+        <p class="muted" id="roNote"></p>
+      </div>
+    </div>
+  </div>
+
+  <p>Try three things. Set adoption to 20% and realisation to 25%, which is what an unmanaged launch often looks like, and watch the payback stretch. Set review to zero and the error rate to 6%, and see a faster process lose money. Then find the adoption at which the scheme merely breaks even. A business case that survives those three tests is one you can defend; one that works only at the default settings is a hope.</p>
+
+  <h3>Deciding what to measure before you start</h3>
+  <table class="t">
+    <tr><th style="width:24%">Measure</th><th>Baseline</th><th>What it guards against</th></tr>
+    <tr><td>Handling time</td><td>20 minutes</td><td>Claiming a saving that is not there</td></tr>
+    <tr><td>First-response time</td><td>9 hours</td><td>Saving time that never reaches the customer</td></tr>
+    <tr><td>Error rate (sampled)</td><td>4%</td><td>Buying speed with mistakes</td></tr>
+    <tr><td>Reopen rate</td><td>12%</td><td>Fast replies that do not resolve the problem</td></tr>
+    <tr><td>Customer satisfaction</td><td>78%</td><td>Efficiency the customer experiences as coldness</td></tr>
+    <tr><td>Adoption</td><td>0%</td><td>A tool that is licensed and not used</td></tr>
+  </table>
+  <p>Record the baseline before the pilot, not after, and keep a comparison group — one queue that carries on as before — so that a change in the figures can be attributed to the assistant and not to a quiet month. Watch a quality measure beside every speed measure. A scheme that improves handling time while the reopen rate climbs has moved the work, not removed it.</p>
+
+  <div class="box key"><span class="tag">Key idea</span>Map the process, separate what can be accelerated from what requires judgement, and write down the inputs, the validation gates, the decision owner and the escalation path. Promise value and admit limits in the same breath.</div>
+</section>
+
+<!-- ---------- Domain 5 ---------- -->
+<section class="lec" id="c5d5">
+  <div class="qhead"><span class="chapno">Chapter 6 · §5</span><h2>Configuration and knowledge management</h2></div>
+  <p class="lede-ch">Chapter 1 made the point that an agent can act only on what it can observe. A Project is how you decide, in advance and for every conversation, what Claude can observe.</p>
+
+  <p>A Project has two parts, and confusing them is the commonest mistake. <b>Project instructions</b> are standing orders: who the audience is, what tone to take, what format to use, what never to do. They apply to every chat in the Project without being repeated. <b>Project knowledge</b> is reference material: the policy, the price list, the style guide, last year's report. It is what Claude reads, not how Claude behaves.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>You explain your house style carefully in one chat. Next week you open a new chat in the same Project and the style is gone. Why — and where should the explanation have been put?</div>
+
+  <p>Because context is not shared between chats unless it has been placed where every chat can see it. Something said in one conversation stays in that conversation. The style belonged in the Project instructions; a document it relied on belonged in Project knowledge. Remember this one fact — instructions and knowledge persist across a Project's chats, conversation does not — and most of the confusion people have about Projects disappears.</p>
+
+  <h3>Writing instructions that work</h3>
+  <p>Good standing instructions are short, specific and stable. State the role and audience ("You are helping the support team reply to hosting customers"), the conventions ("British spelling; no promises about dates"), the output shape, and the boundaries ("If a customer mentions legal action, stop and say the case must go to a team lead"). Put a rule that applies always in the instructions; put a request that applies today in the chat.</p>
+
+  <h3>Looking after the knowledge</h3>
+  <table class="t">
+    <tr><th style="width:20%">Consider</th><th>Ask</th></tr>
+    <tr><td><b>Quality</b></td><td>Is this the authoritative source, or somebody's copy of it?</td></tr>
+    <tr><td><b>Version</b></td><td>Is it current? Is an older version still sitting beside it?</td></tr>
+    <tr><td><b>Permissions</b></td><td>Is everyone who can use this Project entitled to see this document?</td></tr>
+    <tr><td><b>Ownership</b></td><td>Who is responsible for updating it, and when?</td></tr>
+  </table>
+  <p>Files can be uploaded, or reached through <b>connectors</b> to services such as Google Drive and Gmail, which lets Claude read the live document rather than a copy that is going stale. Either way the discipline is the same. A superseded policy left in Project knowledge produces confidently outdated answers, so remove as well as add; two versions of one document invite contradiction, so keep one. And when requirements change, change the instructions — a configuration that was right in January is not right for ever.</p>
+
+  <div class="lab" data-lab="config"><div class="lt"><span class="pill">Experiment 31</span><b>Where does it belong?</b><span class="mark">✓ completed</span></div>
+    <p class="muted">You are setting up a Project for a support team. Place each item.</p>
+    <div id="configBox"></div>
+  </div>
+
+  <div class="box case"><span class="tag">The Calder case</span>Calder gives each queue its own Project, with the queue's policies as knowledge and its conventions as instructions. In June the returns window changes from 30 days to 14. The new policy is uploaded; the old one is not removed. For a month the returns Project sometimes quotes 30 days, and 212 customers are told so. At £35 each that is £7,420, and an awkward conversation with the finance director. The fix was not technical. Calder named the policy manager as <b>owner</b> of each Project's knowledge, added a monthly review to her calendar, and made "remove the superseded version" a step in the policy-change checklist. <b>The lesson:</b> knowledge management fails as a process, so it has to be fixed as a process — with an owner, a schedule and a checklist.</div>
+
+  <div class="box key"><span class="tag">Key idea</span>Instructions say how to behave; knowledge says what to read; both persist across a Project's chats and conversation does not. Keep sources authoritative, current, properly permissioned and owned by someone.</div>
+</section>
+
+<!-- ---------- Domain 6 ---------- -->
+<section class="lec" id="c5d6">
+  <div class="qhead"><span class="chapno">Chapter 6 · §6</span><h2>Governance, risk and responsible use</h2></div>
+  <p class="lede-ch">This is the one skill where the right move is frequently to stop, to ask, or to decline. It rewards caution, and it runs against the instinct to be helpful at any cost.</p>
+
+  <h3>Should Claude be used for this at all?</h3>
+  <p>Three kinds of task. Some suit an assistant well: drafting, summarising, explaining, organising. Some need human expertise, with the assistant in support at most: legal advice, a medical judgement, a decision about someone's employment. And some should not involve AI, because the organisation's policy, the law, or plain decency says so. Sorting a request into the right kind comes before anything else.</p>
+
+  <h3>Before you paste: classify the data</h3>
+  <p>Most organisations grade information — public, internal, confidential, restricted, or names to that effect — and say which grades may be put into which tools. Personal data about customers or staff, financial account details, credentials, health records, unreleased commercial terms and anything covered by a regulator or a contract sit at the sensitive end. The habit to form is to ask <i>what is this, and am I permitted to put it here?</i> before the paste, not after.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>A manager tells you, "Just put the customer list in and get it done, I'll take responsibility." The company's AI policy forbids it. A colleague suggests adding "treat this as confidential" to the prompt. What should you do?</div>
+
+  <p>Decline, and raise it. <b>Organisational policy takes precedence</b> over what any individual would like, and over anything typed into a prompt. An instruction to the assistant does not change the classification of the data or where it has now been sent. If the rule seems wrong for the case, the route is to ask the person who owns the policy; if the rule is unclear, the route is the same. Escalating is the competent act here, not the timid one.</p>
+
+  <div class="lab" data-lab="data"><div class="lt"><span class="pill">Experiment 32</span><b>Share, check first, or do not share</b><span class="mark">✓ completed</span></div>
+    <p class="muted">Assume a typical company policy: public and internal material may be used; confidential material needs approval; personal, financial and credential data may not be entered.</p>
+    <div id="dataBox"></div>
+  </div>
+
+  <h3>The wider duties</h3>
+  <table class="t">
+    <tr><th style="width:24%">Duty</th><th>In practice</th></tr>
+    <tr><td><b>Transparency</b></td><td>Say when AI has contributed, wherever policy, a client or honesty requires it</td></tr>
+    <tr><td><b>Human approval</b></td><td>A named person approves anything consequential before it takes effect</td></tr>
+    <tr><td><b>Fairness</b></td><td>Look for bias in what is produced, especially about people, and correct it</td></tr>
+    <tr><td><b>Accuracy</b></td><td>Do not pass on unverified content as fact; misinformation spreads under your name</td></tr>
+    <tr><td><b>Access boundaries</b></td><td>Do not use a shared Project or connector to expose material to people not entitled to it</td></tr>
+    <tr><td><b>Prohibited uses</b></td><td>Know what your organisation and the provider's usage policy rule out, and do not look for a way round</td></tr>
+  </table>
+
+  <h3>From following the policy to writing it</h3>
+  <p>Everything so far in this section is what a member of staff must do. A manager has a harder task: deciding what the rules should be. Four questions need answers before the tool is switched on.</p>
+  <table class="t">
+    <tr><th style="width:26%">Question</th><th>What a workable answer contains</th></tr>
+    <tr><td><b>Risk appetite</b></td><td>Which uses are encouraged, which need approval, which are forbidden — stated in terms of the harm if it goes wrong, not of the technology</td></tr>
+    <tr><td><b>Data</b></td><td>A classification staff can apply in ten seconds, with examples from their own work, and a named person who settles doubtful cases</td></tr>
+    <tr><td><b>Accountability</b></td><td>Who owns each workflow's output, who approves exceptions, and who is told when something goes wrong</td></tr>
+    <tr><td><b>Incidents</b></td><td>How a mistake is reported without blame, reviewed for cause, and turned into a change of process</td></tr>
+  </table>
+  <p>The difficulty is that strictness and usefulness pull against each other. A policy so tight that staff cannot do their work drives them to unapproved tools, where there is no oversight at all; a policy so loose that anything goes exposes customers and the firm. Where to stand between the two is a judgement about your organisation, which is why it appears here as a choice and not as a rule.</p>
+
+  <div class="lab" data-lab="dil6"><div class="lt"><span class="pill">Experiment 33</span><b>A decision without a right answer: how strict a policy?</b><span class="mark">✓ completed</span></div>
+    <div id="dil6Box"></div>
+  </div>
+
+  <div class="box key"><span class="tag">Key idea</span>Decide first whether the task suits an assistant. Classify data before sharing it. Policy outranks instructions and convenience. Disclose, keep a person in the approval, and when the rule is unclear, ask rather than guess.</div>
+</section>
+
+<!-- ---------- Domain 7 ---------- -->
+<section class="lec" id="c5d7">
+  <div class="qhead"><span class="chapno">Chapter 6 · §7</span><h2>Troubleshooting and optimisation</h2></div>
+  <p class="lede-ch">When an answer disappoints, the temptation is to rewrite the whole prompt and try again. Sometimes that works, and you never learn why. The method taught here is slower for one attempt and much faster over a year.</p>
+
+  <h3>Name the failure before repairing it</h3>
+  <p>Chapter 4 ended with the idea of asking first the question that removes the most uncertainty. Diagnosis is that idea applied. Most poor results are one of six kinds, and each has its own cause and its own remedy.</p>
+  <table class="t">
+    <tr><th style="width:22%">Symptom</th><th>Usual cause</th><th>Remedy</th></tr>
+    <tr><td>Vague, generic answer</td><td>Thin context; no objective or audience</td><td>Supply the context and an example of what good looks like</td></tr>
+    <tr><td>A constraint ignored</td><td>Absent, ambiguous, buried or contradicted (§1)</td><td>State it once, clearly, where it cannot be missed</td></tr>
+    <tr><td>Invented source or figure</td><td>Asked to recall rather than to read</td><td>Provide the source; ask for citations; verify them</td></tr>
+    <tr><td>Out-of-date answer in a Project</td><td>Stale file in Project knowledge</td><td>Replace the file; remove the old version</td></tr>
+    <tr><td>Drifting, forgetful conversation</td><td>Context overload</td><td>Summarise and restart, or move the background into a Project</td></tr>
+    <tr><td>Right content, wrong register</td><td>Audience not stated</td><td>Name the reader and the purpose</td></tr>
+  </table>
+
+  <div class="lab" data-lab="diag"><div class="lt"><span class="pill">Experiment 34</span><b>Diagnose before you fix</b><span class="mark">✓ completed</span></div>
+    <div id="diagBox"></div>
+  </div>
+
+  <h3>One change at a time</h3>
+  <p>If you alter the wording, add a document and switch model all at once, and the result improves, you do not know which change did it — and you will carry the two useless ones forward for ever. Change one thing, keep the test the same, and compare. The test must be fixed in advance: the same input, judged by the same criteria. Otherwise "better" only means "different, and I am tired of looking".</p>
+
+  <h3>Optimise downwards</h3>
+  <p>Once a workflow produces what is needed, ask what can be removed. A shorter prompt that meets the same bar is better than a long one, because every extra sentence is something to maintain and something to conflict with. A smaller, faster model that meets the bar is better than a large one. A plain chat is better than a Project if nothing needs to persist. Complexity that buys no quality is cost. And make the fix last: if the correction was a missing rule, put it in the Project instructions so that the same failure does not have to be diagnosed again next month by someone else.</p>
+
+  <div class="box worked"><span class="tag">Worked example</span>A weekly report comes back in a different layout each time. Naming the failure: a format constraint is not being met. Cause: the prompt says "a tidy summary", which is ambiguous. One change: replace it with the exact headings and a pasted example of last week's report. Same input, same criteria: the layout now holds for three weeks running. Make it last: move the format into the Project instructions. No change of model was needed, and none was made.</div>
+
+  <div class="box case"><span class="tag">The Calder case</span>Three months in, the billing queue's reopen rate has risen from 12% to 15% while the other two queues have improved. The temptation is to rewrite the billing prompt, switch model and retrain the team all at once. Calder's team lead instead names the failure — replies that do not resolve the issue — and samples forty reopened tickets. Thirty-one concern refunds to expired cards, a case the billing Project's knowledge does not cover, so the assistant drafts a confident, generic reply. One change is made: a one-page procedure for expired-card refunds is added to Project knowledge. The same measure is watched for four weeks, and the reopen rate returns to 11%. <b>The lesson:</b> the diagnosis came from the data, the fix was a single document, and nobody needed a larger model.</div>
+
+  <div class="box key"><span class="tag">Key idea</span>Name the failure, find its cause, change one thing, test against fixed criteria, then simplify and make the fix permanent. A bigger model is rarely the first answer.</div>
+
+  </section>
+
+<!-- ---------- The manager's view ---------- -->
+<section class="lec" id="c5d8">
+  <div class="qhead"><span class="chapno">Chapter 6 · §8</span><h2>From pilot to practice: the manager's view</h2></div>
+  <p class="lede-ch">The seven skills describe a competent individual. An organisation is not improved by competent individuals alone; someone has to decide where to begin, prove that it works, and change how the work is done. No list of personal skills covers that, and it is most of a manager's job.</p>
+
+  <div class="think"><span class="tag">Pause and think</span>Calder's head of service has a sound business case and a willing supplier. She can switch the assistant on for all forty agents on Monday. Why might that be the wrong thing to do, even if the technology works perfectly?</div>
+
+  <p>Because a technology that works is not the same as a practice that has changed. On Monday morning forty people would have a new tool, no shared way of using it, no baseline to compare against, and no one to ask. Some would use it badly, some not at all, and in three months nobody could say whether it had helped. The alternative is slower to start and much faster to finish.</p>
+
+  <h3>Choosing where to start</h3>
+  <table class="t">
+    <tr><th style="width:26%">A good first process is</th><th>Because</th></tr>
+    <tr><td>High in volume</td><td>There is enough work to measure a difference within weeks</td></tr>
+    <tr><td>Bounded and repeatable</td><td>The inputs and the definition of "done" are clear</td></tr>
+    <tr><td>Low in harm if it fails</td><td>A mistake is caught by a person and costs little</td></tr>
+    <tr><td>Already measured</td><td>A baseline exists, or can be taken, before you begin</td></tr>
+    <tr><td>Owned by a willing team</td><td>People who want it to work will tell you honestly when it does not</td></tr>
+  </table>
+  <p>At Calder that points to the returns queue: the largest volume, the clearest policy, modest sums at stake. Billing, with its exceptions and its regulated data, is a poor place to learn.</p>
+
+  <h3>Running the pilot</h3>
+  <p>Fix four things in writing before the first ticket. The <b>success criteria</b>: for example, handling time down by a quarter with error and reopen rates no worse. The <b>comparison</b>: the delivery queue carries on as before. The <b>duration</b>: six weeks, long enough to get past the novelty. And the <b>decision date</b>, with three permitted outcomes — scale, change, or stop. A pilot without a decision date becomes a permanent experiment, costing licences and attention and proving nothing.</p>
+
+  <h3>The people</h3>
+  <p>Resistance is rarely about the software. Agents ask, reasonably, whether saved time means fewer jobs, whether they will be blamed for the assistant's mistakes, and whether the skilled part of their work is being taken away. Each deserves a straight answer before launch. Say what the saved time is for — at Calder, bringing first response from nine hours to four, not reducing headcount. Say that the agent approves every reply and that a mistake caught in review is the process working. And redesign the role honestly: less typing, more deciding, more of the difficult cases. Then train for the new role and not merely the new tool. An hour on which buttons to press is not training; practice in writing a brief, checking a draft against a source and knowing when to escalate is.</p>
+
+  <h3>Scaling, and keeping it honest</h3>
+  <p>If the figures support it, extend queue by queue, carrying over what was learned: the prompt template, the review rule, the Project set-up, the checklist for policy changes. Give the whole thing an owner and a regular forum — monthly is enough — that looks at the measures, reviews incidents, and decides what changes. Appoint a few capable agents as the people colleagues ask. And keep measuring after the excitement fades, because a workflow drifts: policies change, staff turn over, files go stale. The organisations that get lasting value treat the assistant as a process to be managed, not a product to be installed.</p>
+
+  <div class="lab" data-lab="dil8"><div class="lt"><span class="pill">Experiment 35</span><b>A decision without a right answer: how to roll out?</b><span class="mark">✓ completed</span></div>
+    <div id="dil8Box"></div>
+  </div>
+
+  <div class="box worked"><span class="tag">Worked example</span>Calder pilots in the returns queue: 14 agents, 4,500 tickets a month, six weeks. Handling time falls from 20 to 13 minutes including review; the sampled error rate moves from 4% to 3%; the reopen rate is unchanged; adoption reaches 80% by week four. Monthly, that is 4,500 × 0.8 × 7 ÷ 60 = 420 hours released. The head of service commits them to response time, not to cost: first response in the returns queue falls from 9 hours to 5. Error cost falls by 4,500 × 0.8 × 1% × £35 = £1,260. Against 14 licences at £25, the pilot pays for itself — and, more to the point, she can show the board how she knows.</div>
+
+  <div class="box key"><span class="tag">Key idea</span>Start narrow, where volume is high and harm is low. Fix the criteria, the comparison and the decision date in advance. Tell people what the saved time is for, redesign the role, and train for judgement. Then scale what the figures support, with an owner and a forum to keep it honest.</div>
+
+  </section>
+
+<!-- ---------- Second case ---------- -->
+<section class="lec" id="c5d9">
+  <div class="qhead"><span class="chapno">Chapter 6 · §9</span><h2>The same method somewhere else: accounts payable</h2></div>
+  <p class="lede-ch">A method that works in one department has not been learned until it has been used in another. Here is a second, smaller case with different numbers, and the numbers change the design.</p>
+  <div class="think"><span class="tag">Pause and think</span>At Calder an error cost £35. In a finance team paying suppliers, a typical error is a duplicate or misdirected payment. Would you expect the review rule to be lighter or heavier than in customer service?</div>
+  <table class="t">
+    <tr><th style="width:44%">Northgate Logistics, accounts payable — the baseline</th><th>Figure</th></tr>
+    <tr><td>Clerks</td><td>8</td></tr>
+    <tr><td>Supplier invoices</td><td>3,000 a month</td></tr>
+    <tr><td>Handling time per invoice</td><td>12 minutes: reading, matching to the order, coding, queuing for payment</td></tr>
+    <tr><td>Loaded cost of a clerk</td><td>£30 an hour</td></tr>
+    <tr><td>Payment errors</td><td>1.5%, each costing about £180 to recover</td></tr>
+  </table>
+  <p>Size the prize and the risk as before. Labour: 3,000 × 12 ÷ 60 = 600 hours, or £18,000 a month. Errors: 3,000 × 1.5% × £180 = £8,100 a month. Compare Calder, where errors were about a sixth of the labour cost; here they are nearly half. The prize is smaller and each mistake is five times dearer, so a design that trades a little accuracy for speed, tolerable in customer service, would lose money here.</p>
+  <p>Finance adds two constraints of its own. <b>Segregation of duties</b>: the person who prepares a payment must not be the one who approves it, and an assistant counts as neither. <b>Fraud</b>: a request to change a supplier's bank details is the classic route for it, and no fluent email should ever be enough. And supplier bank details are precisely the kind of data Chapter 6, §6 says to keep out.</p>
+  <div class="lab" data-lab="ap"><div class="lt"><span class="pill">Experiment 36</span><b>Design the accounts-payable workflow</b><span class="mark">✓ completed</span></div>
+    <div id="apBox"></div>
+  </div>
+  <div class="box worked"><span class="tag">Worked example</span>Suppose assisted handling saves 5 net minutes an invoice, adoption reaches 60% and half the released time is put to use. Labour benefit: 3,000 × 0.6 × 5 ÷ 60 = 150 hours × £30 × 50% = £2,250 a month. Eight licences at an assumed £25 cost £200. Net: £2,050 a month, before any change in errors. If careful matching also cuts errors on assisted invoices from 1.5% to 1.0%, that adds 3,000 × 0.6 × 0.5% × £180 = £1,620. In this department the error saving is nearly as large as the time saving, which tells you where to aim the design.</div>
+  <div class="box key"><span class="tag">Key idea</span>The method transfers: size the prize and the risk, split the steps, set gates and owners, measure. The numbers decide the design. Where an error is expensive, aim the assistant at accuracy and keep review heavy.</div>
+  <div class="summary"><h3>Chapter 6 in brief</h3><ul>
+    <li><b>Prompting</b> — objective, context, constraints, output shape, quality criteria; decompose and iterate; a missed requirement was absent, ambiguous, buried or contradicted.</li>
+    <li><b>Evaluation</b> — accuracy, completeness, consistency, relevance, audience fit; verify outside the conversation; self-reported confidence is not verification.</li>
+    <li><b>Selection</b> — chat, Projects, research mode, Artifacts; Haiku, Sonnet, Opus by what the task demands; continue, summarise, restart or preserve.</li>
+    <li><b>Workflow</b> — map the process; accelerable against judgement-dependent steps; inputs, validation gates, decision owner, escalation path.</li>
+    <li><b>Configuration</b> — instructions for behaviour, knowledge for reference, both persisting across chats; quality, version, permissions, ownership.</li>
+    <li><b>Governance</b> — suitability, data classification, policy over instructions, disclosure, human approval, escalation when unclear.</li>
+    <li><b>Troubleshooting</b> — name the failure, change one variable, hold the criteria fixed, prefer the simplest thing that meets the bar.</li>
+    <li><b>The manager's view</b> — size the prize and the risk first; a business case needs adoption and realisation, not only minutes saved; pair every speed measure with a quality measure; pilot narrowly, with a baseline and a comparison group, then scale what the figures support.</li>
+  </ul></div>
+  <div class="review"><h3>Questions for review</h3>
+    <details><summary>Calder saves 8 net minutes on each assisted ticket. Why is the monthly benefit not simply 12,000 × 8 minutes × £24 an hour?</summary><div class="ans">Because not every ticket is assisted (adoption) and not every saved hour becomes value (realisation). At 70% adoption and 50% realisation the labour benefit is 12,000 × 0.7 × 8 ÷ 60 × £24 × 0.5 = £13,440, not £38,400. Licence costs and any change in error cost must then be added.</div></details>
+    <details><summary>Why should every speed measure be paired with a quality measure?</summary><div class="ans">Speed can be bought with errors or with replies that do not resolve the problem. Handling time watched alone rewards exactly that; error rate, reopen rate and satisfaction reveal it.</div></details>
+    <details><summary>What makes a good pilot?</summary><div class="ans">A bounded process with enough volume to measure, a willing team, low harm if it fails, a baseline recorded beforehand, a comparison group, success criteria agreed in advance, and a fixed date on which to decide: scale, change or stop.</div></details>
+    <details><summary>Name the five components of a complete prompt and say what each contributes.</summary><div class="ans">Objective (what is to be produced), context (for whom, why, from what material), constraints (what it must and must not do), output shape (the form of the answer), quality criteria (how both parties know it is good).</div></details>
+    <details><summary>Why is asking an assistant "are you sure?" not a form of verification?</summary><div class="ans">The assurance is generated by the same process as the original claim, so it is not independent. Verification requires comparison with something outside the conversation: the source, a system of record, a calculation, or a qualified person.</div></details>
+    <details><summary>A team drafts tender responses weekly from the same reference documents. Which feature, and why?</summary><div class="ans">A Project: standing instructions carry the house style, Project knowledge carries the references, and both persist across chats. An Artifact suits each finished response; the model should be the smallest that meets the quality required.</div></details>
+    <details><summary>What four things must a workflow design state?</summary><div class="ans">The inputs the assistant receives, the validation gates where a person checks output, the named owner of the final decision, and the escalation path for unusual, uncertain or high-risk cases.</div></details>
+    <details><summary>Distinguish Project instructions from Project knowledge.</summary><div class="ans">Instructions are standing rules of behaviour — audience, tone, format, boundaries. Knowledge is reference material to read — policies, price lists, style guides. Both persist across the Project's chats; what is said in one chat does not.</div></details>
+    <details><summary>A manager asks you to enter restricted customer data against policy. What do you do?</summary><div class="ans">Decline and escalate to whoever owns the policy. Organisational policy takes precedence over an individual's instruction and over anything written in a prompt; labelling the data "confidential" in the prompt changes nothing.</div></details>
+    <details><summary>Describe a disciplined way to fix a prompt that is producing poor output.</summary><div class="ans">Name the failure type; identify the likely cause; change one variable; re-test on the same input against the same criteria; keep the change only if it helps; then simplify, and store a lasting fix in the Project instructions.</div></details>
+  </div>
+</section>
+
+
 
 <!-- ============ Formulae ============ -->
 <section class="lec" id="formulas">
@@ -664,10 +1137,34 @@ I have taught this material to engineers, managers and the occasional sceptical 
 
 <!-- ============ Quiz ============ -->
 <section class="lec" id="quiz">
-  <div class="qhead"><span class="chapno">Appendix B</span><h2>Self-assessment <span class="marks" id="quizScore" style="float:right;margin-top:.5rem">0 / 16</span></h2></div>
-  <p>Sixteen questions across all five chapters. Each shows an explanation once answered, and your score is kept in this browser so you can come back to it.</p>
+  <div class="qhead"><span class="chapno">Appendix B</span><h2>Self-assessment <span class="marks" id="quizScore" style="float:right;margin-top:.5rem">0 / 36</span></h2></div>
+  <p>Thirty-six questions across all six chapters. For tasks that test doing, not recognising, see the practical tasks that follow. Each shows an explanation once answered, and your score is kept in this browser so you can come back to it.</p>
   <div id="quizBox"></div>
   <button class="b sec" id="quizReset" data-action="reset-quiz">Start again</button>
+</section>
+
+<!-- ============ Practical tasks ============ -->
+<section class="lec" id="tasks">
+  <div class="qhead"><span class="chapno">Appendix D</span><h2>Practical tasks</h2></div>
+  <p class="lede-ch">The self-assessment tests whether you recognise a right answer. These three tasks test whether you can produce one. Write your answer, then mark it against the rubric. Four out of five on each is a pass.</p>
+  <div id="taskBox"></div>
+</section>
+
+<!-- ============ Sources ============ -->
+<section class="lec" id="sources">
+  <div class="qhead"><span class="chapno">Appendix E</span><h2>Further reading and sources</h2></div>
+  <table class="t">
+    <tr><th style="width:22%">Chapter</th><th>Source</th></tr>
+    <tr><td>1–4, general</td><td>S. Russell and P. Norvig, <i>Artificial Intelligence: A Modern Approach</i>, 4th edition, Pearson, 2020. The standard textbook; PEAS, task environments, agents, search and decision trees follow its treatment.</td></tr>
+    <tr><td>1 · Turing Test</td><td>A. M. Turing, "Computing Machinery and Intelligence", <i>Mind</i> 59 (1950), 433–460. S. Harnad, "Other Bodies, Other Minds", <i>Minds and Machines</i> 1 (1991), for the Total Turing Test.</td></tr>
+    <tr><td>2 · Annealing</td><td>S. Kirkpatrick, C. D. Gelatt and M. P. Vecchi, "Optimization by Simulated Annealing", <i>Science</i> 220 (1983), 671–680.</td></tr>
+    <tr><td>3 · Base rates</td><td>G. Gigerenzer and U. Hoffrage, "How to Improve Bayesian Reasoning Without Instruction: Frequency Formats", <i>Psychological Review</i> 102 (1995), 684–704. The source of the "count it out" method.</td></tr>
+    <tr><td>3 · Markov decisions</td><td>R. S. Sutton and A. G. Barto, <i>Reinforcement Learning: An Introduction</i>, 2nd edition, MIT Press, 2018.</td></tr>
+    <tr><td>4 · Entropy and trees</td><td>C. E. Shannon, "A Mathematical Theory of Communication", <i>Bell System Technical Journal</i> 27 (1948). J. R. Quinlan, "Induction of Decision Trees", <i>Machine Learning</i> 1 (1986), 81–106.</td></tr>
+    <tr><td>5 · Language models</td><td>A. Vaswani et al., "Attention Is All You Need", <i>Advances in Neural Information Processing Systems</i> 30 (2017). The paper that introduced the architecture behind current models.</td></tr>
+    <tr><td>6 · Working with Claude</td><td>Anthropic, prompt-engineering documentation, docs.claude.com. Anthropic, <i>Claude Certified Associate – Foundations</i> exam guide, for the list of seven skills and their emphasis.</td></tr>
+  </table>
+  <p class="muted">A note on Chapter 6. The seven skills and their weights were taken from published summaries of Anthropic's guide, not from the guide itself; check them against the current official version before relying on them. Calder Home and Northgate Logistics are invented, and their licence prices are assumptions made for the arithmetic.</p>
 </section>
 
 <div class="foot">Independent teaching material, not endorsed by Anthropic · certification details follow Anthropic's published outline and may change</div>
